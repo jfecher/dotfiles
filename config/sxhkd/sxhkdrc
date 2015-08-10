@@ -1,0 +1,111 @@
+#
+# bspwm hotkeys
+#
+
+super + shift + Escape
+	bspc quit
+
+super + w
+	bspc window -c
+
+super + t
+	bspc desktop -l next
+
+super + b
+	bspc desktop -B
+
+super + {s,f}
+	bspc window -t {floating,fullscreen}
+
+super + {grave,Tab}
+	bspc {window,desktop} -f last
+
+super + apostrophe
+	bspc window -s last
+
+super + {o,p}
+	bspc control --record-history off; \
+	bspc window {older,newer} -f; \
+	bspc control --record-history on
+
+super + y
+	bspc window -w last.manual
+
+super + m
+	bspc window -s biggest
+
+super + {_,shift + }{j,k,i,l}
+    bspc window -{f,s} {left,down,up,right}
+
+super + {_,shift +}c
+	bspc window -f {next,prev}
+
+super + {comma,period}
+	bspc desktop -C {backward,forward}
+
+super + bracket{left,right}
+	bspc desktop -f {prev,next}
+
+super + ctrl + {j,k,i,l}
+	bspc window -e {left,down,up,right}
+
+#super + Tab + {_,shift + }space
+#	bspc {window -p cancel,desktop -c}
+#
+super + ctrl + shift + {j,k,i,l}
+	bspc window -e {left -10,down +10,up -10,right +10}
+
+super + alt + {1-9} 
+	bspc window -r 0.{1-9}
+
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,window -d} ^{1-9,10}
+
+~button1
+	bspc pointer -g focus
+
+super + button{1-3}
+	bspc pointer -g {move,resize_side,resize_corner}
+
+super + !button{1-3}
+	bspc pointer -t %i %i
+
+super + @button{1-3}
+	bspc pointer -u
+
+
+#
+# wm independant hotkeys
+#
+
+super + Return
+	uxterm
+ 
+super + space
+	dmenu_run
+
+super + Escape
+	pkill -USR1 -x sxhkd
+
+super + semicolon
+    firefox
+
+super + ctrl + w
+    wifi-menu
+
+alt + BackSpace
+    xte 'keydown Delete'
+    sleep 0.001s
+    xte 'keyup Delete'
+
+#Volume adjustment
+{F8,F9,F10}
+    /home/rndmprsn/Documents/pa-vol.sh {mute,minus,plus}
+
+#Brightness adjustment
+alt + {F9,F10}
+    xbacklight -{dec,inc} 3
+
+XF86PowerOff
+    echo "Powering Off"
+    
