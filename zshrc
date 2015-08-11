@@ -84,6 +84,11 @@ alias search='pacman -Ss'
 alias uninstall-orphans='sudo pacman -Rsn $(pacman -Qdtq)'
 alias update='sudo pacman -Syu && uninstall-orphans'
 
+cdls(){
+    cd $1
+    ls
+}
+
 alias ls='ls --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -94,20 +99,14 @@ alias kill='pkill -15 -x'
 
 alias cpf='cp -avr'
 
-alias tmux='tmux -u -2'
-
-alias backlight='sudo vim /sys/class/backlight/intel_backlight/brightness'
-
-alias vimzy='cd /home/rndmprsn/Code/ZyScript && vim interpreter.c'
+alias vimzy='cd /home/rndmprsn/Code/ZyScript && vim src/interpreter.c'
 alias zy='/home/rndmprsn/Code/ZyScript/zy'
 
 alias ncm='mpd && ncmpcpp'
 
-alias connect='sudo ip link set wlp1s0 down && sudo kill wpa_supplicant && nmcli c up Pretty\ fly\ for\ a\ wifi'
 alias refresh='sudo kill wpa_supplicant'
 
 alias ping='ping -c 1 www.google.com'
-alias wifi-menu='sudo wifi-menu'
 
 alias bar='~/Code/bar/bar.sh'
-alias vol='/home/rndmprsn/Documents/pa-vol.sh'
+alias vol='~/Documents/pa-vol.sh'
