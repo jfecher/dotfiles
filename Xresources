@@ -2,34 +2,34 @@
 *background: #000000
 *foreground: #ffffff
 
-*color0:  #555555
-*color8:  #555753
+*color0:  #555555   
+*color8:  #444444
 
 !red
 *color1:  #f92672
-*color9:  #ff8d8d
+*color9:  #f92672
 
 !green
 *color2:  #a6e22e
-*color10: #93d44f
+*color10: #287a58
 
 !yellow-orange
-*color3:  #e6d9ef
-*color11: #ffc123
+*color3:  #e6db74
+*color11: #66d9ef
 
 !blue
 *color4:  #66d9ef
-*color12: #3465a4
+*color12: #66d9ef
 
 !brown
-*color5:  #ce5c00
-*color13: #f57900
+*color5:  #ae81ff
+*color13: #ae81ff
  
 !blue-purple
 *color6:  #66d9ef
-*color14: #ae81ff
+*color14: #66d9ef
 
-*color7:  #cccccc
+*color7:  #ffffff
 *color15:  #ffffff
 
 !xterm stuff

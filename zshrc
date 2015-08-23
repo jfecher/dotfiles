@@ -109,19 +109,19 @@ alias vol='~/Documents/pa-vol.sh'
 # color theme
 if [ "$TERM" = "linux" ]; then
     echo -en "\e]P0000000" #black
-    echo -en "\e]P8444444" #darkgrey
+    echo -en "\e]P8555555" #darkgrey
     echo -en "\e]P9F92672" #darkred
     echo -en "\e]P1F92672" #red
-    echo -en "\e]PA287AF5" #darkgreen
+    echo -en "\e]PAA6E22E" #darkgreen
     echo -en "\e]P2A6E22E" #green
-    echo -en "\e]PBE6D9EF" #brown
+    echo -en "\e]PBE6DB74" #brown
     echo -en "\e]P3E6DB74" #yellow
-    echo -en "\e]PC66D9EF" #darkblue
+    echo -en "\e]PCA6E22E" #darkblue
     echo -en "\e]P466D9EF" #blue
-    echo -en "\e]PDAE81FF" #purple     - Numbers
-    echo -en "\e]P5F92672" #magenta
+    echo -en "\e]PDAE81FF" #purple
+    echo -en "\e]P5AE81FF" #purple
     echo -en "\e]PE66D9EF" #darkcyan
     echo -en "\e]P666D9EF" #cyan
-    echo -en "\e]P7FFFFFF" #lightgrey
-    echo -en "\e]PFFFFFFF" #white
+    echo -en "\e]P7FFFFFF" #white
+    echo -en "\e]PFFFFFFF" #darkgrey
 fi
