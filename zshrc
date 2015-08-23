@@ -82,20 +82,17 @@ alias install='sudo pacman -S'
 alias uninstall='sudo pacman -Rsn'
 alias search='pacman -Ss'
 alias uninstall-orphans='sudo pacman -Rsn $(pacman -Qdtq)'
-alias update='sudo pacman -Syu && uninstall-orphans'
-
-cdls(){
-    cd $1
-    ls
-}
+alias update='sudo pacman -Syu'
 
 alias ls='ls --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias xkill='pkill -15 x'
-alias kill='pkill -15 -x'
+cdls() {
+    cd $1
+    ls
+}
 
 alias cpf='cp -avr'
 
@@ -104,9 +101,27 @@ alias zy='/home/rndmprsn/Code/ZyScript/zy'
 
 alias ncm='mpd && ncmpcpp'
 
-alias refresh='sudo kill wpa_supplicant'
-
 alias ping='ping -c 1 www.google.com'
 
 alias bar='~/Code/bar/bar.sh'
 alias vol='~/Documents/pa-vol.sh'
+
+# color theme
+if [ "$TERM" = "linux" ]; then
+    echo -en "\e]P0000000" #black
+    echo -en "\e]P8444444" #darkgrey
+    echo -en "\e]P9F92672" #darkred
+    echo -en "\e]P1F92672" #red
+    echo -en "\e]PA287AF5" #darkgreen
+    echo -en "\e]P2A6E22E" #green
+    echo -en "\e]PBE6D9EF" #brown
+    echo -en "\e]P3E6DB74" #yellow
+    echo -en "\e]PC66D9EF" #darkblue
+    echo -en "\e]P466D9EF" #blue
+    echo -en "\e]PDAE81FF" #purple     - Numbers
+    echo -en "\e]P5F92672" #magenta
+    echo -en "\e]PE66D9EF" #darkcyan
+    echo -en "\e]P666D9EF" #cyan
+    echo -en "\e]P7FFFFFF" #lightgrey
+    echo -en "\e]PFFFFFFF" #white
+fi

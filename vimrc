@@ -131,12 +131,8 @@ function! s:pairquotes(pair)
 endf
 " ================== end of ClosePairs =======================
 
-" CtrlP
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 
-" vim-airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
 
 "
 " Basic shortcuts definitions
@@ -170,7 +166,8 @@ inoremap <C-z>  <Esc>:undo<CR>
 nnoremap <C-y>  :redo<CR>
 inoremap <C-y>  <Esc>:redo<CR>
 
-" Tabs
+" vim-airline
+let g:airline_powerline_fonts = 1
 let g:airline_theme='badwolf'
 let g:airline#extensions#tabline#enabled = 1
 
