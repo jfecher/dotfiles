@@ -78,6 +78,10 @@ set fileformats=unix,dos,mac
 
 set completeopt=menuone,longest,preview
 
+"folding
+set fdm=manual
+nnoremap f zfa}
+
 "
 " Plugins config
 "
@@ -97,6 +101,8 @@ inoremap ( ()<left>
 inoremap { {}<left>
 inoremap [ []<left>
 
+inoremap <expr> <return> <SID>newline()
+
 vnoremap <leader>" "zdi"<c-r>z"
 vnoremap <leader>' "zdi'<c-r>z'
 vnoremap <leader>( "zdi(<c-r>z)
@@ -110,6 +116,14 @@ inoremap <expr> ] <SID>escapepair(']')
 inoremap <expr> " <SID>pairquotes('"')
 inoremap <expr> ' <SID>pairquotes("'")
 
+function! s:newline()
+    let l:col = col('.')
+    let l:chr = getline('.')[l:col-1]
+    if l:chr == '}' || l:chr == ']' || l:chr == ')'
+        return "\<return>\<return>\<up>\<tab>"
+    else
+        return "\<return>"
+endf
 
 function! s:escapepair(right)
 	let l:col = col('.')
