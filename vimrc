@@ -153,11 +153,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
 "  most in visual mode / selection (v or ⇧ v)
 "
 
-" Cut, Paste, Copy
-vmap <C-x> d
-vmap <C-v> P
-vmap <C-c> y
-
+" completely rebind movement keys
 nnoremap <space> i
 nnoremap i k
 nnoremap k j
@@ -165,12 +161,14 @@ nnoremap j h
 
 nnoremap ; :
 
+nnoremap E $
+
+" bind C-movement key to switch to a different split
 nmap <silent><C-j> :wincmd h<CR>
 nmap <silent><C-i> :wincmd k<CR>
 nmap <silent><C-k> :wincmd j<CR>
 nmap <silent><C-l> :wincmd l<CR>
 
-nmap <silent><F3> :w<CR>:!clear<CR>:make<CR>:!uxterm<CR><F11>
 hi def link cCustomFunc Function
 hi def link cCustomType Type
 
@@ -198,12 +196,18 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_disabled_filetypes=['tex']
 
 "NERDTREE
 map <silent> <F4> :NERDTreeToggle<CR>
 
+" C and C++ specifics
+autocmd BufEnter *.cpp,*.c,*.h nmap <silent><F3> :w<CR>:!clear<CR>:make<CR>:!uxterm<CR><F11>
 autocmd BufEnter *.cpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
+
+"Apply hard text wrapping for .tex files
+autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
 
 "open automatically if no files were specified
 autocmd StdinReadPre * let s:std_in=1

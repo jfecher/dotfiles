@@ -51,6 +51,8 @@ plugins=(git)
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
+export WINEPREFIX='/run/media/rndmprsn/0042-176B/wine'
+export WINEARCH='wine64'
 
 source $ZSH/oh-my-zsh.sh
 
