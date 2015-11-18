@@ -97,24 +97,16 @@ nnoremap f zfa}
 " License:  Public Domain
 "==============================================================================
 
-inoremap ( ()<left>
 inoremap { {}<left>
 inoremap [ []<left>
 
 inoremap <expr> <return> <SID>newline()
 
-vnoremap <leader>" "zdi"<c-r>z"
-vnoremap <leader>' "zdi'<c-r>z'
-vnoremap <leader>( "zdi(<c-r>z)
 vnoremap <leader>[ "zdi[<c-r>z]
 vnoremap <leader>{ "zdi{<c-r>z}
 
-inoremap <expr> ) <SID>escapepair(')')
 inoremap <expr> } <SID>escapepair('}')
 inoremap <expr> ] <SID>escapepair(']')
-
-inoremap <expr> " <SID>pairquotes('"')
-inoremap <expr> ' <SID>pairquotes("'")
 
 function! s:newline()
     let l:col = col('.')
@@ -134,15 +126,6 @@ function! s:escapepair(right)
 		return a:right
 endf
 
-function! s:pairquotes(pair)
-	let l:col = col('.')
-	let l:line = getline('.')
-	let l:chr = l:line[l:col-1]
-	if a:pair == l:chr
-		return "\<right>"
-	else
-		return a:pair.a:pair."\<left>"
-endf
 " ================== end of ClosePairs =======================
 
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
@@ -158,6 +141,11 @@ nnoremap <space> i
 nnoremap i k
 nnoremap k j
 nnoremap j h
+
+vnoremap <space> <Esc>
+vnoremap i k
+vnoremap k j
+vnoremap j h
 
 nnoremap ; :
 
@@ -192,22 +180,29 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+let b:syntastic_cpp_cflags = '--std=c++11'
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_check_header = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_disabled_filetypes=['tex']
 
 "NERDTREE
 map <silent> <F4> :NERDTreeToggle<CR>
 
 " C and C++ specifics
-autocmd BufEnter *.cpp,*.c,*.h nmap <silent><F3> :w<CR>:!clear<CR>:make<CR>:!uxterm<CR><F11>
-autocmd BufEnter *.cpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
-autocmd BufEnter *.cpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
+autocmd BufEnter *.cpp,*.hpp,*.c,*.h nmap <silent><F3> :w<CR>:!clear<CR>:make<CR>:!uxterm<CR><F11>
+autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
+autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
+
+"apply syntax highlighting to .zy files
+au BufRead,BufNewFile *.zy set filetype=zy
+au! Syntax zy source /home/rndmprsn/.vim/syntax/zy.vim
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
+autocmd BufEnter *.tex SyntasticToggleMode
 
 "open automatically if no files were specified
 autocmd StdinReadPre * let s:std_in=1
