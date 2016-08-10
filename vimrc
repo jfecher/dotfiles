@@ -180,25 +180,30 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let b:syntastic_cpp_cflags = '--std=c++11'
+let b:syntastic_cpp_cflags = '--std=c++14'
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_check_header = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 "NERDTREE
 map <silent> <F4> :NERDTreeToggle<CR>
 
+" clear && make shortcut with F3
+nmap <silent><F3> :!clear&&make<CR>
+
+" ctrlp
+let g:ctrlp_custom_ignore = '\v[\/]\.[do]'
+
 " C and C++ specifics
-autocmd BufEnter *.cpp,*.hpp,*.c,*.h nmap <silent><F3> :w<CR>:!clear<CR>:make<CR>:!uxterm<CR><F11>
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
 
-"apply syntax highlighting to .zy files
-au BufRead,BufNewFile *.zy set filetype=zy
-au! Syntax zy source /home/rndmprsn/.vim/syntax/zy.vim
+"apply syntax highlighting to ante source files
+au BufRead,BufNewFile *.an set filetype=ante
+au! Syntax ante source /home/rndmprsn/.vim/syntax/ante.vim
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>

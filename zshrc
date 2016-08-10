@@ -54,6 +54,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin
 export WINEPREFIX='/run/media/rndmprsn/0042-176B/wine'
 export WINEARCH='wine64'
 
+export VISUAL='vim'
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -80,6 +81,13 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 [ -n "$XTERM_VERSION" ] && transset-df -a >/dev/null
 
+. /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+export CC='clang'
+export CXX='clang++'
+
+export STEAM_FRAME_FORCE_CLOSE=1
+
 alias install='sudo pacman -S'
 alias uninstall='sudo pacman -Rsn'
 alias search='pacman -Ss'
@@ -98,10 +106,15 @@ cdls() {
 
 alias cpf='cp -avr'
 
-alias vimzy='cd /home/rndmprsn/Code/ZyScript && vim src/interpreter.c'
-alias zy='/home/rndmprsn/Code/ZyScript/zy'
+alias v='vim'
+alias vima='cd /home/rndmprsn/Code/Ante && vim src/compiler.cpp'
+alias ante='/home/rndmprsn/Code/Ante/ante'
+alias zy='/home/rndmprsn/Code/ZyScript_old/zy'
+
+alias grapher='python /home/rndmprsn/Code/grapher/grapher.py'
 
 alias ncm='mpd && ncmpcpp'
+alias screenshot='gnome-screenshot'
 
 alias ping='ping -c 1 www.google.com'
 

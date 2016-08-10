@@ -11,7 +11,8 @@
 
 !green
 *color2:  #a6e22e
-*color10: #287a58
+*color10: #a6e22e
+!*color10: #287a58
 
 !yellow-orange
 *color3:  #e6db74
@@ -33,8 +34,9 @@
 *color15:  #ffffff
 
 !xterm stuff
-xterm*faceName:  Literation\ Mono\ Powerline:size=12
-xter*dynamicColors: true
+!xterm*faceName: xft:DejaVu Sans Mono:size=13
+!xterm*faceName: FantasqueSansMono-Regular:size=14
+xterm*faceName: Literation Mono Powerline:size=10
+xterm*dynamicColors: true
 xterm*utf8: 2
 xterm*transparent: true
-xterm*VT100.geometry:  63x23

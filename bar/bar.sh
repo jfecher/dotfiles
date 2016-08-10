@@ -10,8 +10,7 @@ red="#FF0000"
 yellow="#FFFF00"
 green="#32CD32"
 blue="#0000FF"
-# Fonts
-#font="Source\ Code\ Pro\ Medium:size=10"
+
 font="Literation\ Mono\ Powerline:size=10"
 
 clock() {
@@ -65,7 +64,7 @@ windowtitle(){
     echo "%{F$white}$title" | cut -c 1-60 # Limits the output to a maximum # of chars
 }
 
-#where BATPERC = "42%", P = "42"
+#echo in different colors depending on the percentage of the battery, and if it is charging
 battery() {
     BAT=$(acpi --battery)
     BATPERC=$(echo $BAT | cut -d, -f2 | cut -d% -f1)
@@ -76,6 +75,9 @@ battery() {
         C=$blue
     elif [[ $BATPERC -le 5 ]]; then
     	C=$red
+        if [[ $BATPERC -le 3 ]]; then
+            systemctl hybrid-sleep
+        fi
     elif [[ $BATPERC -le 15 ]]; then
     	C=$yellow
     else
@@ -92,5 +94,4 @@ while :; do
 done |
 
 # Finally, launches bar while piping the above while loop!
-# | bash is needed on the end for the click events to work.
 lemonbar -g x14 -f $font

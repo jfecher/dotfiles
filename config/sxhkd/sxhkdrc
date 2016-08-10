@@ -5,62 +5,59 @@
 super + shift + Escape
 	bspc quit
 
-super + w
-	bspc window -c
+#close / kill
+super + {_,shift + }w
+	bspc node -{c,k}
 
-super + t
+#switch layouts
+super + g
 	bspc desktop -l next
 
-super + b
-	bspc desktop -B
+#set window state
+super + {t,shift + t,s,f}
+	bspc node -t '~{tiled,pseudo_tiled,floating,fullscreen}'
 
-super + {s,f}
-	bspc window -t {floating,fullscreen}
+#set node flags
+super + ctrl + {x,y,z}
+    bspc node -g {locked,sticky,private}
 
-super + {grave,Tab}
-	bspc {window,desktop} -f last
+#change window focus
+super + {_, shift +} {j,k,i,l}
+    bspc node -{f,s} {west,south,north,east}
 
-super + apostrophe
-	bspc window -s last
+#change window focus relative to current node in tree
+super + {p,b,comma,period}
+    bspc node -f @{parent, brother,first,second}
 
-super + {o,p}
-	bspc control --record-history off; \
-	bspc window {older,newer} -f; \
-	bspc control --record-history on
-
-super + y
-	bspc window -w last.manual
-
-super + m
-	bspc window -s biggest
-
-super + {_,shift + }{j,k,i,l}
-    bspc window -{f,s} {left,down,up,right}
-
-super + {_,shift +}c
-	bspc window -f {next,prev}
-
-super + {comma,period}
-	bspc desktop -C {backward,forward}
-
+#change desktop left/right
 super + bracket{left,right}
 	bspc desktop -f {prev,next}
 
-super + ctrl + {j,k,i,l}
-	bspc window -e {left,down,up,right}
-
-#super + Tab + {_,shift + }space
-#	bspc {window -p cancel,desktop -c}
-#
-super + ctrl + shift + {j,k,i,l}
-	bspc window -e {left -10,down +10,up -10,right +10}
-
-super + alt + {1-9} 
-	bspc window -r 0.{1-9}
-
+#focus on specific desktop
 super + {_,shift + }{1-9,0}
-	bspc {desktop -f,window -d} ^{1-9,10}
+	bspc {desktop -f,node -d} '^{1-9,10}'
 
+
+
+#set manual mode for next window focus left/down/up/right
+super + ctrl + {j,k,i,l}
+    bspc node -p {west,south,north,east}
+
+#expand window in direction
+super + ctrl + alt + {j,k,i,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+#contract window in direction
+super + ctrl + shift + {j,k,i,l}
+    bspc node -z {right -20 0,top 0 20, bottom 0 -20,left 20 0}
+
+#move floating window
+super + alt + {j,k,i,l}
+    bspc node -v {-20 0,0 20,0 -20,20 0}
+
+#
+# mouse stuff
+#
 ~button1
 	bspc pointer -g focus
 
@@ -87,16 +84,8 @@ super + space
 super + Escape
 	pkill -USR1 -x sxhkd
 
-super + semicolon
-    firefox
-
-super + ctrl + w
-    wifi-menu
-
-alt + BackSpace
-    xte 'keydown Delete'
-    sleep 0.001s
-    xte 'keyup Delete'
+super + {_, shift +} semicolon
+    {firefox, google-chrome-stable}
 
 #Volume adjustment
 {F8,F9,F10}
@@ -104,8 +93,7 @@ alt + BackSpace
 
 #Brightness adjustment
 alt + {F9,F10}
-    xbacklight -{dec,inc} 3
+    xbacklight -{dec,inc} 5
 
-XF86PowerOff
-    echo "Powering Off"
-    
+#XF86PowerOff
+#    echo "Powering Off"
