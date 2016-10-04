@@ -113,7 +113,7 @@ alias zy='/home/rndmprsn/Code/ZyScript_old/zy'
 
 alias grapher='python /home/rndmprsn/Code/grapher/grapher.py'
 
-alias ncm='mpd && ncmpcpp'
+alias ncm='mpd; ncmpcpp'
 alias screenshot='gnome-screenshot'
 
 alias ping='ping -c 1 www.google.com'
@@ -131,7 +131,7 @@ if [ "$TERM" = "linux" ]; then
     echo -en "\e]P2A6E22E" #green
     echo -en "\e]PBE6DB74" #brown
     echo -en "\e]P3E6DB74" #yellow
-    echo -en "\e]PCA6E22E" #darkblue
+    echo -en "\e]PC66D9EF" #darkblue
     echo -en "\e]P466D9EF" #blue
     echo -en "\e]PDAE81FF" #purple
     echo -en "\e]P5AE81FF" #purple

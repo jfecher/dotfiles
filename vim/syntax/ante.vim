@@ -11,14 +11,14 @@ syn keyword anType f16 f32 f64 isz usz
 syn keyword anType c8 c32 void bool
 syn match anType '\w\@<![A-Z]\w*'
 
-syn match anOp '[+\-\*/%#@&=<>]'
+syn match anOp '[+\-\*/%#@&=<>|!:]'
 
 syn match anType '\'[a-z]\w*'
 
-syn keyword anKeywords if elif else import
+syn keyword anKeywords if elif else import with mut
 syn keyword anKeywords for in do while let export
 syn keyword anKeywords continue break return this is
-syn keyword anKeywords ext new match trait module
+syn keyword anKeywords ext new match trait module ante
 syn keyword anKeywords enum type where when fun var
 syn keyword anKeywords infect and or xor not then do
 
@@ -26,7 +26,10 @@ syn keyword anMods pub pro pri const raw pathogen noinit
 
 syn match funcDef  '\(fun\)\@<= .\+\(:\@=\)' contains=anKewords,anType
 " syn match funcCall '\w\@<!\w\+\((\@=\)' contains=anKewords
-syn match funcCall '\([)\]"A-Za-z_0-9] *\)\@<![a-z]\w*\(\( *[("\[]\| \+\w\)\@=\)' contains=anKewords
+syn match funcCall '\([)\]"\'A-Za-z_0-9] *\)\@<![a-z]\w*\(\(\(\( *[(\'"\[]\)\|\( \+\w\)\)\@=\)\( *\(do\|then\|and\|or\|with\)\@!\)\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match funcCall '\(\(and\|or\|not\|then\|match\|while\|if\|elif\|else\|import\|for\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|then\|with\|and\|or\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match funcCall '\(\(|>\) *\)\@<=[a-z]\w*' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match funcCall '[a-z]\w*\(\( *<|\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 
 
 syn match stringLiteral '\".\{-}\"'
