@@ -80,7 +80,7 @@ set completeopt=menuone,longest,preview
 
 "folding
 set fdm=manual
-nnoremap f zfa}
+nnoremap F zfa}
 
 "
 " Plugins config
@@ -157,14 +157,20 @@ nmap <silent><C-i> :wincmd k<CR>
 nmap <silent><C-k> :wincmd j<CR>
 nmap <silent><C-l> :wincmd l<CR>
 
+nmap <C-j> :bp<CR>
+nmap <C-l> :bn<CR>
+nmap <C-w> :bdelete<CR>
+imap <C-j> <Esc>:bp<CR>
+imap <C-l> <Esc>:bn<CR>
+imap <C-w> <Esc>:bdelete<CR>
+
+nmap <C-z> :undo<CR>
+nmap <C-y> :redo<CR>
+imap <C-z> <Esc>:undo<CR>
+imap <C-y> <Esc>:redo<CR>
+
 hi def link cCustomFunc Function
 hi def link cCustomType Type
-
-" Undo, Redo (broken)
-nnoremap <C-z>  :undo<CR>
-inoremap <C-z>  <Esc>:undo<CR>
-nnoremap <C-y>  :redo<CR>
-inoremap <C-y>  <Esc>:redo<CR>
 
 " vim-airline
 let g:airline_powerline_fonts = 1
@@ -177,27 +183,49 @@ let mapleader = ','
 "more plugins
 "
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let b:syntastic_cpp_cflags = '--std=c++14'
-let g:syntastic_cpp_remove_include_errors = 1
-let g:syntastic_cpp_check_header = 1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+"let b:syntastic_cpp_cflags = '--std=c++14'
+"let g:syntastic_cpp_remove_include_errors = 1
+"let g:syntastic_cpp_check_header = 1
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 0
+"let g:syntastic_check_on_wq = 0
 
 "NERDTREE
 map <silent> <F4> :NERDTreeToggle<CR>
 
-" clear && make shortcut with F3
-nmap <silent><F3> :!clear&&make<CR>
-
 " ctrlp
 let g:ctrlp_custom_ignore = '\v[\/]\.[do]'
 
+" vim-sneak, press s again to go to next match
+let g:sneak#s_next = 1
+
+" asyncrun
+"set errorformat+=*
+"
+function! s:cErrCheck(check)
+    call asyncrun#quickfix_toggle(10)
+    if a:check
+        AsyncRun! clang++ -std=c++14 -Iinclude -c % -o .__tmp__; rm .__tmp__
+    else
+        AsyncRun make
+    endif
+endf
+
+"
+nmap <silent><F3> :call <SID>cErrCheck(0)<CR>
+nmap ' :AsyncRun 
+let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+
+"augroup vimrc
+"    autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(10)
+"augroup END
+
 " C and C++ specifics
+au BufWritePost *.cpp,*.hpp,*.c,*.h call <SID>cErrCheck(1)
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
 
@@ -207,7 +235,6 @@ au! Syntax ante source /home/rndmprsn/.vim/syntax/ante.vim
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
-autocmd BufEnter *.tex SyntasticToggleMode
 
 "open automatically if no files were specified
 autocmd StdinReadPre * let s:std_in=1

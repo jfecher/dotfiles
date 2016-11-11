@@ -1,7 +1,4 @@
 syn keyword notes contained TODO FIXME XXX NOTE
-syn match comment '\~.*$' contains=notes contains=mlcmt
-syn region mlcmt start='`' end='`' contains=notes
-syn region mlcmt start='#{' end='}' contains=notes
 
 syn keyword anBool true false
 
@@ -13,21 +10,26 @@ syn match anType '\w\@<![A-Z]\w*'
 
 syn match anOp '[+\-\*/%#@&=<>|!:]'
 
+
+syn match comment '//.*$' contains=notes,mlcmt
+syn region mlcmt start='/\*' end='\*/' contains=notes
+syn region preproc start='!\[' end=']' contains=comment,mlcmt,funcCall,stringLiteral,charLiteral,integerLiteral,doubleLiteral,anType
+
 syn match anType '\'[a-z]\w*'
 
-syn keyword anKeywords if elif else import with mut
+syn keyword anKeywords if elif else import mut
 syn keyword anKeywords for in do while let export
 syn keyword anKeywords continue break return this is
 syn keyword anKeywords ext new match trait module ante
 syn keyword anKeywords enum type where when fun var
 syn keyword anKeywords infect and or xor not then do
 
-syn keyword anMods pub pro pri const raw pathogen noinit
+syn keyword anMods pub pro pri const raw noinit
 
 syn match funcDef  '\(fun\)\@<= .\+\(:\@=\)' contains=anKewords,anType
 " syn match funcCall '\w\@<!\w\+\((\@=\)' contains=anKewords
-syn match funcCall '\([)\]"\'A-Za-z_0-9] *\)\@<![a-z]\w*\(\(\(\( *[(\'"\[]\)\|\( \+\w\)\)\@=\)\( *\(do\|then\|and\|or\|with\)\@!\)\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-syn match funcCall '\(\(and\|or\|not\|then\|match\|while\|if\|elif\|else\|import\|for\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|then\|with\|and\|or\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match funcCall '\([)\]"\'A-Za-z_0-9] *\)\@<![a-z]\w*\(\(\(\( *[(\'"\[]\)\|\( \+\w\)\)\@=\)\( *\(do\|ante\|then\|and\|or\|with\)\@!\)\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match funcCall '\(\(and\|or\|not\|then\|match\|while\|if\|elif\|else\|import\|for\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\|ante\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|then\|with\|and\|or\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 syn match funcCall '\(\(|>\) *\)\@<=[a-z]\w*' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 syn match funcCall '[a-z]\w*\(\( *<|\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 
@@ -50,6 +52,7 @@ let b:current_syntax = "an"
 hi def link notes          Todo
 hi def link comment        Comment
 hi def link mlcmt          Comment
+hi def link preproc        PreProc
 hi def link anOp           Keyword
 hi def link anKeywords     Keyword
 hi def link anMods         Keyword
