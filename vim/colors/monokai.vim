@@ -12,7 +12,7 @@ set t_Co=256
 let g:colors_name = "monokai"
 
 hi Cursor       ctermfg=235  ctermbg=231  cterm=NONE      guifg=#272822 guibg=#f8f8f0 gui=NONE
-hi Visual       ctermfg=NONE ctermbg=59   cterm=NONE      guifg=NONE    guibg=#49483e gui=NONE
+hi Visual       ctermfg=NONE ctermbg=6    cterm=NONE      guifg=NONE    guibg=#49483e gui=NONE
 hi CursorLine   ctermfg=NONE ctermbg=237  cterm=NONE      guifg=NONE    guibg=#3c3d37 gui=NONE
 hi CursorColumn ctermfg=NONE ctermbg=237  cterm=NONE      guifg=NONE    guibg=#3c3d37 gui=NONE
 hi ColorColumn  ctermfg=NONE ctermbg=237  cterm=NONE      guifg=NONE    guibg=#3c3d37 gui=NONE
@@ -30,17 +30,17 @@ hi Folded       ctermfg=242  ctermbg=235  cterm=NONE      guifg=#75715e guibg=#2
 hi SignColumn   ctermfg=NONE ctermbg=237  cterm=NONE      guifg=NONE    guibg=#3c3d37 gui=NONE
 hi Normal       ctermfg=231  ctermbg=NONE cterm=NONE      guifg=#f8f8f2 guibg=#272822 gui=NONE
 hi Boolean      ctermfg=5    ctermbg=NONE cterm=NONE      guifg=#ae81ff guibg=NONE    gui=NONE
-hi Character    ctermfg=5    ctermbg=NONE cterm=NONE      guifg=#ae81ff guibg=NONE    gui=NONE
-hi Comment      ctermfg=0    ctermbg=NONE cterm=NONE      guifg=#75715e guibg=NONE    gui=NONE
-hi Conditional  ctermfg=197  ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
-hi Constant     ctermfg=NONE ctermbg=NONE cterm=NONE      guifg=NONE    guibg=NONE    gui=NONE
-hi Define       ctermfg=197  ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
+hi Character    ctermfg=3    ctermbg=NONE cterm=NONE      guifg=#ae81ff guibg=NONE    gui=NONE
+hi Comment      ctermfg=6    ctermbg=NONE cterm=NONE      guifg=#75715e guibg=NONE    gui=NONE
+hi Conditional  ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
+hi Constant     ctermfg=5    ctermbg=NONE cterm=NONE      guifg=NONE    guibg=NONE    gui=NONE
+hi Define       ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
 hi DiffAdd      ctermfg=231  ctermbg=64   cterm=bold      guifg=#f8f8f2 guibg=#46830c gui=bold
 hi DiffDelete   ctermfg=88   ctermbg=NONE cterm=NONE      guifg=#8b0807 guibg=NONE    gui=NONE
 hi DiffChange   ctermfg=NONE ctermbg=NONE cterm=NONE      guifg=#f8f8f2 guibg=#243955 gui=NONE
 hi DiffText     ctermfg=231  ctermbg=24   cterm=bold      guifg=#f8f8f2 guibg=#204a87 gui=bold
 hi ErrorMsg     ctermfg=231  ctermbg=197  cterm=NONE      guifg=#f8f8f0 guibg=#f92672 gui=NONE
-hi WarningMsg   ctermfg=231  ctermbg=197  cterm=NONE      guifg=#f8f8f0 guibg=#f92672 gui=NONE
+hi WarningMsg   ctermfg=3    ctermbg=197  cterm=NONE      guifg=#f8f8f0 guibg=#f92672 gui=NONE
 hi Float        ctermfg=5    ctermbg=NONE cterm=NONE      guifg=#ae81ff guibg=NONE    gui=NONE
 hi Function     ctermfg=2    ctermbg=NONE cterm=NONE      guifg=#a6e22e guibg=NONE    gui=NONE
 hi Identifier   ctermfg=81   ctermbg=NONE cterm=NONE      guifg=#66d9ef guibg=NONE    gui=italic
@@ -48,17 +48,17 @@ hi Keyword      ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NO
 hi Label        ctermfg=186  ctermbg=NONE cterm=NONE      guifg=#e6db74 guibg=NONE    gui=NONE
 hi NonText      ctermfg=NONE ctermbg=NONE cterm=NONE      guifg=#49483e guibg=#31322c gui=NONE
 hi Number       ctermfg=5    ctermbg=NONE cterm=NONE      guifg=#ae81ff guibg=NONE    gui=NONE
-hi Operator     ctermfg=197  ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
-hi PreProc      ctermfg=197  ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
-hi Special      ctermfg=231  ctermbg=NONE cterm=NONE      guifg=#f8f8f2 guibg=NONE    gui=NONE
-hi SpecialKey   ctermfg=59   ctermbg=237  cterm=NONE      guifg=#49483e guibg=#3c3d37 gui=NONE
-hi Statement    ctermfg=197  ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
+hi Operator     ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
+hi PreProc      ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
+hi Special      ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f8f8f2 guibg=NONE    gui=NONE
+hi SpecialKey   ctermfg=1    ctermbg=237  cterm=NONE      guifg=#49483e guibg=#3c3d37 gui=NONE
+hi Statement    ctermfg=1    ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
 hi StorageClass ctermfg=81   ctermbg=NONE cterm=NONE      guifg=#66d9ef guibg=NONE    gui=italic
 hi String       ctermfg=3    ctermbg=NONE cterm=NONE      guifg=#e6db74 guibg=NONE    gui=NONE
 hi Tag          ctermfg=197  ctermbg=NONE cterm=NONE      guifg=#f92672 guibg=NONE    gui=NONE
 hi Title        ctermfg=231  ctermbg=NONE cterm=bold      guifg=#f8f8f2 guibg=NONE    gui=bold
 hi Todo         ctermfg=95   ctermbg=NONE cterm=bold      guifg=#75715e guibg=NONE    gui=inverse,bold
-hi Type         ctermfg=6    ctermbg=NONE cterm=NONE      guifg=NONE    guibg=NONE    gui=NONE
+hi Type         ctermfg=4    ctermbg=NONE cterm=NONE      guifg=NONE    guibg=NONE    gui=NONE
 hi Underlined   ctermfg=NONE ctermbg=NONE cterm=underline guifg=NONE    guibg=NONE    gui=underline
 hi htmlTag      ctermfg=NONE ctermbg=NONE cterm=NONE      guifg=NONE    guibg=NONE    gui=NONE
 hi htmlEndTag   ctermfg=NONE ctermbg=NONE cterm=NONE      guifg=NONE    guibg=NONE    gui=NONE

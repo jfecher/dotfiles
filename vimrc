@@ -152,17 +152,20 @@ nnoremap ; :
 nnoremap E $
 
 " bind C-movement key to switch to a different split
-nmap <silent><C-j> :wincmd h<CR>
-nmap <silent><C-i> :wincmd k<CR>
-nmap <silent><C-k> :wincmd j<CR>
-nmap <silent><C-l> :wincmd l<CR>
+map <silent><C-J> :wincmd h<CR>
+map <silent><C-I> :wincmd k<CR>
+map <silent><C-K> :wincmd j<CR>
+map <silent><C-L> :wincmd l<CR>
+map <silent><C-w>w :split<CR>
+map <silent><C-w>j <C-w>J
+map <silent><C-w>i <C-w>I 
+map <silent><C-w>k <C-w>K
+map <silent><C-w>l <C-w>L 
+map <silent><C-;> :bdelete<CR>
 
-nmap <C-j> :bp<CR>
-nmap <C-l> :bn<CR>
-nmap <C-w> :bdelete<CR>
-imap <C-j> <Esc>:bp<CR>
-imap <C-l> <Esc>:bn<CR>
-imap <C-w> <Esc>:bdelete<CR>
+map <silent><M-j> :hide bp<CR>
+map <silent><M-l> :hide bn<CR>
+map <silent><M-;> :bdelete<CR>
 
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
@@ -209,7 +212,7 @@ let g:sneak#s_next = 1
 function! s:cErrCheck(check)
     call asyncrun#quickfix_toggle(10)
     if a:check
-        AsyncRun! clang++ -std=c++14 -Iinclude -c % -o .__tmp__; rm .__tmp__
+        AsyncRun! clang++ -std=c++14 -Iinclude -fsyntax-only %
     else
         AsyncRun make
     endif
@@ -220,18 +223,18 @@ nmap <silent><F3> :call <SID>cErrCheck(0)<CR>
 nmap ' :AsyncRun 
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
+"YouCompleteMe settings
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+
 "augroup vimrc
 "    autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(10)
 "augroup END
 
 " C and C++ specifics
-au BufWritePost *.cpp,*.hpp,*.c,*.h call <SID>cErrCheck(1)
+"au BufWritePost *.cpp,*.hpp,*.c,*.h call <SID>cErrCheck(1)
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
-
-"apply syntax highlighting to ante source files
-au BufRead,BufNewFile *.an set filetype=ante
-au! Syntax ante source /home/rndmprsn/.vim/syntax/ante.vim
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
@@ -239,3 +242,33 @@ autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
 "open automatically if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+"javacomplete
+autocmd Filetype java setlocal omnifunc=javacomplete#Complete
+setlocal completefunc=javacomplete#CompleteParamsInfo
+inoremap <buffer> <C-X><C-U> <C-X><C-U><C-P>
+inoremap <buffer> <C-S-Space <C-X><C-U><C-P>
+
+autocmd Filetype java nmap <silent><F3> :!clear && javac % && java $(echo % \| sed -e 's/\..*//')<CR>
+
+autocmd! BufWritePost * Neomake
+
+let g:neomake_c_enabled_makers = ['clang']
+let g:neomake_c_clang_maker = {
+    \ 'args': ['-Wall', '-Wextra', '-Weverything', -'pedantic', '-Iinclude'],
+    \ }
+
+let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
+let g:neomake_cpp_clang_maker = {
+    \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic', '-Wno-sign-conversion', '-Iinclude', 'std=c++14'],
+    \ 'exe': 'clang++',
+    \ }
+let g:neomake_cpp_gcc_maker = {
+    \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic', '-Wno-sign-conversion', '-Iinclude', 'std=c++14'],
+    \ 'exe': 'g++',
+    \ }
+
+let g:neomake_an_enabled_makers = ['ante']
+let g:neomake_an_ante_maker = {
+    \ 'args': ['-check'],
+    \ }

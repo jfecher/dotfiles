@@ -14,6 +14,7 @@ endif
 
 let g:EasyMotion_loaded = 1
 " }}}
+
 " == Saving 'cpoptions' {{{
 let s:save_cpo = &cpo
 set cpo&vim

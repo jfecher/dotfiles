@@ -20,6 +20,9 @@ super + {t,shift + t,s,f}
 #set node flags
 super + ctrl + {x,y,z}
     bspc node -g {locked,sticky,private}
+#locked = prevent from closing
+#sticky = follow on every desktop
+#private = ?
 
 #change window focus
 super + {_, shift +} {j,k,i,l}
@@ -44,7 +47,7 @@ super + ctrl + {j,k,i,l}
     bspc node -p {west,south,north,east}
 
 #expand window in direction
-super + ctrl + alt + {j,k,i,l}
+super + alt + shift + {j,k,i,l}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 #contract window in direction
@@ -58,9 +61,6 @@ super + alt + {j,k,i,l}
 #
 # mouse stuff
 #
-~button1
-	bspc pointer -g focus
-
 super + button{1-3}
 	bspc pointer -g {move,resize_side,resize_corner}
 
@@ -79,13 +79,13 @@ super + Return
 	uxterm
  
 super + space
-	dmenu_run
+	dmenu_run -fn 'Liberation Mono for Powerline:size=10'
 
 super + Escape
 	pkill -USR1 -x sxhkd
 
-super + {_, shift +} semicolon
-    {firefox, google-chrome-stable}
+super + semicolon
+    firefox
 
 #Volume adjustment
 {F8,F9,F10}
