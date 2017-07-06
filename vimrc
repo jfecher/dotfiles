@@ -163,14 +163,17 @@ map <silent><C-w>k <C-w>K
 map <silent><C-w>l <C-w>L 
 map <silent><C-;> :bdelete<CR>
 
-map <silent><M-j> :hide bp<CR>
-map <silent><M-l> :hide bn<CR>
-map <silent><M-;> :bdelete<CR>
+map <silent><C-J> :hide bp<CR>
+map <silent><C-L> :hide bn<CR>
+map <silent><C-;> :bdelete<CR>
 
 nmap <C-z> :undo<CR>
 nmap <C-y> :redo<CR>
 imap <C-z> <Esc>:undo<CR>
 imap <C-y> <Esc>:redo<CR>
+
+nmap <silent>t :terminal<CR>
+tmap <silent><C-t> <C-c><space>exit<CR>
 
 hi def link cCustomFunc Function
 hi def link cCustomType Type
@@ -253,22 +256,27 @@ autocmd Filetype java nmap <silent><F3> :!clear && javac % && java $(echo % \| s
 
 autocmd! BufWritePost * Neomake
 
+let g:neomake_open_list = 2
+
+let g:neomake_warning_sign = { 'text': 'W', 'texthl': 'WarningMsg', }
+
+let g:neomake_error_sign = { 'text': 'E', 'texthl': 'ErrorMsg', }
+
 let g:neomake_c_enabled_makers = ['clang']
 let g:neomake_c_clang_maker = {
     \ 'args': ['-Wall', '-Wextra', '-Weverything', -'pedantic', '-Iinclude'],
     \ }
 
-let g:neomake_cpp_enabled_makers = ['clang', 'gcc']
+let g:neomake_cpp_enabled_makers = ['clang']
 let g:neomake_cpp_clang_maker = {
-    \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic', '-Wno-sign-conversion', '-Iinclude', 'std=c++14'],
+    \ 'args': ['-Wall', '-pedantic', '-Wsign-compare', '-Wno-sign-conversion', '-Iinclude', '-std=c++14'],
     \ 'exe': 'clang++',
     \ }
-let g:neomake_cpp_gcc_maker = {
-    \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic', '-Wno-sign-conversion', '-Iinclude', 'std=c++14'],
-    \ 'exe': 'g++',
-    \ }
 
-let g:neomake_an_enabled_makers = ['ante']
-let g:neomake_an_ante_maker = {
-    \ 'args': ['-check'],
+let g:neomake_ante_enabled_makers = ['ante']
+let g:neomake_ante_ante_maker = {
+    \ 'args': ['-check', '-no-color', '-lib'],
+    \ 'errorformat': '%E%f: %l\,%c%.%#error:%m,'
+    \              . '%W%f: %l\,%c%.%#warning:%m,'
+    \              . '%C%.%#,' . "Compilation aborted."
     \ }

@@ -51,10 +51,11 @@ plugins=(git)
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
-export WINEPREFIX='/run/media/rndmprsn/0042-176B/wine'
-export WINEARCH='wine64'
+export WINEPREFIX='/run/media/rndmprsn/'
+# export WINEARCH='wine64'
 
-export VISUAL='vim'
+export VISUAL='nvim'
+export EDITOR='nvim'
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -62,9 +63,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+#   export EDITOR='nvim'
 # else
-#   export EDITOR='mvim'
+#   export EDITOR='nvim'
 # fi
 
 # Compilation flags
@@ -104,11 +105,26 @@ cdls() {
     ls
 }
 
-alias cpf='cp -avr'
+usb() {
+    if [[ $# -ne 1 ]]; then
+        echo "usage: usb <drive>"
+    else
+        sudo mkdir -p /run/media/rndmprsn
+        sudo chown rndmprsn /run/media/rndmprsn
+        sudo chgrp rndmprsn /run/media/rndmprsn
+        sudo mount -rw -o 'exec' $1 /run/media/rndmprsn
+    fi
+}
 
-alias v='vim'
-alias vima='cd /home/rndmprsn/Code/Ante && vim src/compiler.cpp'
-alias ante='/home/rndmprsn/Code/Ante/ante'
+alias cpf='cp -avr'
+alias uniso='7z x'
+
+alias rs='cd $WINEPREFIX/drive_c/Program\ Files\ \(x86\)/Rosetta\ Stone/Rosetta\ Stone\ Version\ 3; wine RosettaStoneVersion3.exe'
+alias mrs='sudo mkdir -p /run/media/rndmprsn && sudo chmod 777 /run/media/rndmprsn && sudo chown rndmprsn /run/media/rndmprsn && sudo chgrp rndmprsn /run/media/rndmprsn'
+
+alias v='nvim'
+alias vima='cd /home/rndmprsn/Code/Ante/master && nvim src/compiler.cpp'
+alias ante='/home/rndmprsn/Code/Ante/master/ante'
 alias zy='/home/rndmprsn/Code/ZyScript_old/zy'
 
 alias grapher='python /home/rndmprsn/Code/grapher/grapher.py'
@@ -136,7 +152,12 @@ if [ "$TERM" = "linux" ]; then
     echo -en "\e]PDAE81FF" #purple
     echo -en "\e]P5AE81FF" #purple
     echo -en "\e]PE66D9EF" #darkcyan
-    echo -en "\e]P666D9EF" #cyan
+    
+    #echo -en "\e]P666D9EF" #cyan
+    echo -en "\e]P6555555" #cyan
+    
     echo -en "\e]P7FFFFFF" #white
     echo -en "\e]PFFFFFFF" #darkgrey
 fi
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
