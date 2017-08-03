@@ -76,7 +76,8 @@ set nowritebackup
 set noswapfile
 set fileformats=unix,dos,mac
 
-set completeopt=menuone,longest,preview
+"set completeopt=menuone,longest
+set completeopt=menu
 
 "folding
 set fdm=manual
@@ -129,6 +130,7 @@ endf
 " ================== end of ClosePairs =======================
 
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set wildignore+=*.o,*.ao,*.d,*.gch
 
 
 "
@@ -204,22 +206,10 @@ set statusline+=%*
 map <silent> <F4> :NERDTreeToggle<CR>
 
 " ctrlp
-let g:ctrlp_custom_ignore = '\v[\/]\.[do]'
+let g:ctrlp_custom_ignore = '*.[do]'
 
 " vim-sneak, press s again to go to next match
 let g:sneak#s_next = 1
-
-" asyncrun
-"set errorformat+=*
-"
-function! s:cErrCheck(check)
-    call asyncrun#quickfix_toggle(10)
-    if a:check
-        AsyncRun! clang++ -std=c++14 -Iinclude -fsyntax-only %
-    else
-        AsyncRun make
-    endif
-endf
 
 "
 nmap <silent><F3> :call <SID>cErrCheck(0)<CR>
@@ -238,6 +228,18 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 "au BufWritePost *.cpp,*.hpp,*.c,*.h call <SID>cErrCheck(1)
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
+
+"fugitive cfg
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+"clang_complete cfg
+let g:clang_library_path = '/usr/lib64/libclang.so.4.0'
+let g:clang_snippets = 1
+let g:clang_auto_select = 1
+let g:clang_close_preview = 1
+let g:clang_user_options = '-std=c++11 -Iinclude'
+let g:clang_complete_patterns = 1
+
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
