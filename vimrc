@@ -3,10 +3,20 @@
 " Best view with a 256 color terminal and Powerline fonts
 
 set nocompatible
-filetype off
-execute pathogen#infect()
+execute pathogen#infect('/home/rndmprsn/.config/nvim/bundle/{}')
+syntax on
+filetype plugin indent on
 
-colorscheme monokai
+
+" gruvbox config
+let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_invert_signs = 0
+
+set background=dark
+colorscheme gruvbox
+" colorscheme ante
+" colorscheme monokai
 
 """"""""
 if has('autocmd')
@@ -15,6 +25,8 @@ endif
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
+
+set clipboard+=unnamedplus
 
 " Use :help 'option' to see the documentation for the given option.
 set backspace=indent,eol,start
@@ -56,8 +68,6 @@ set sidescroll=1
 set sidescrolloff=10
 set splitright
 
-inoremap <C-U> <C-G>u<C-U>
-
 set number
 set hlsearch
 set ignorecase
@@ -76,61 +86,15 @@ set nowritebackup
 set noswapfile
 set fileformats=unix,dos,mac
 
-"set completeopt=menuone,longest
-set completeopt=menu
+set completeopt=menuone,longest
 
 "folding
-set fdm=manual
-nnoremap F zfa}
+" set fdm=manual
+" nnoremap F zfa}
 
-"
-" Plugins config
-"
-
-
-"==============================================================================
-" closepairs.vim - Auto closes pairs of characters
-"==============================================================================
-"
-" Author:   NoWhereMan (Edoardo Vacchi) <uncommonnonsense at gmail dot com>
-" Version:  0.1
-" URL: 	    http://www.flatpress.org/
-" License:  Public Domain
-"==============================================================================
-
-inoremap { {}<left>
-inoremap [ []<left>
-
-inoremap <expr> <return> <SID>newline()
-
-vnoremap <leader>[ "zdi[<c-r>z]
-vnoremap <leader>{ "zdi{<c-r>z}
-
-inoremap <expr> } <SID>escapepair('}')
-inoremap <expr> ] <SID>escapepair(']')
-
-function! s:newline()
-    let l:col = col('.')
-    let l:chr = getline('.')[l:col-1]
-    if l:chr == '}' || l:chr == ']' || l:chr == ')'
-        return "\<return>\<return>\<up>\<tab>"
-    else
-        return "\<return>"
-endf
-
-function! s:escapepair(right)
-	let l:col = col('.')
-	let l:chr = getline('.')[l:col-1]
-	if a:right == l:chr
-		return "\<right>"
-	else
-		return a:right
-endf
-
-" ================== end of ClosePairs =======================
 
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-set wildignore+=*.o,*.ao,*.d,*.gch
+set wildignore+=*.o,*.ao,*.d,*.gch,*.class
 
 
 "
@@ -139,6 +103,7 @@ set wildignore+=*.o,*.ao,*.d,*.gch
 "
 
 " completely rebind movement keys
+" hjkl -> jkil
 nnoremap <space> i
 nnoremap i k
 nnoremap k j
@@ -149,43 +114,64 @@ vnoremap i k
 vnoremap k j
 vnoremap j h
 
+nmap <silent><C-w>j <C-w>h
+nmap <silent><C-w>i <C-w>j
+nmap <silent><C-w>J <C-w>H
+
+nmap <silent><C-w>I <C-w>J
+nmap <silent><C-w>j <C-w>h
+nmap <silent><C-w>i <C-w>j
+
+" Pressing esc is too much of a stretch, this isn't emacs
+inoremap jj <Esc>
+
+tnoremap <Esc> <C-\><C-n>
+tnoremap jj <C-\><C-n>
+
+" This should be a default really
 nnoremap ; :
 
-nnoremap E $
-
 " bind C-movement key to switch to a different split
-map <silent><C-J> :wincmd h<CR>
-map <silent><C-I> :wincmd k<CR>
-map <silent><C-K> :wincmd j<CR>
-map <silent><C-L> :wincmd l<CR>
-map <silent><C-w>w :split<CR>
-map <silent><C-w>j <C-w>J
-map <silent><C-w>i <C-w>I 
-map <silent><C-w>k <C-w>K
-map <silent><C-w>l <C-w>L 
-map <silent><C-;> :bdelete<CR>
+nnoremap <silent><C-j> <C-w>h
+nnoremap <silent><C-i> <C-w>k
+nnoremap <silent><C-k> <C-w>j
+nnoremap <silent><C-l> <C-w>l
 
-map <silent><C-J> :hide bp<CR>
-map <silent><C-L> :hide bn<CR>
-map <silent><C-;> :bdelete<CR>
+inoremap <silent><C-j> <Esc><C-w>h
+inoremap <silent><C-i> <Esc><C-w>k
+inoremap <silent><C-k> <Esc><C-w>j
+inoremap <silent><C-l> <Esc><C-w>l
 
-nmap <C-z> :undo<CR>
-nmap <C-y> :redo<CR>
-imap <C-z> <Esc>:undo<CR>
-imap <C-y> <Esc>:redo<CR>
+tnoremap <silent><C-j> <C-\><C-n><C-w>h
+" tnoremap <silent><C-i> <C-\><C-n><C-w>k   this breaks tab completion
+tnoremap <silent><C-k> <C-\><C-n><C-w>j
+" tnoremap <silent><C-l> <C-\><C-n><C-w>l   this breaks clearing of terminal
 
-nmap <silent>t :terminal<CR>
-tmap <silent><C-t> <C-c><space>exit<CR>
+
+nmap <silent>J :hide bp<CR>
+nmap <silent>L :hide bn<CR>
+
+nmap <silent>t :terminal<CR><space>
+
+tnoremap <silent>J <C-\><C-n>:hide bp<CR>
+tnoremap <silent>L <C-\><C-n>:hide bn<CR>
 
 hi def link cCustomFunc Function
 hi def link cCustomType Type
 
 " vim-airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='badwolf'
+" let g:airline_theme='badwolf'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
-let mapleader = ','
+let mapleader = '\'
+map <Leader> <Plug>(easymotion-prefix)
+
+
+" Autopairs
+" Disable jumping to matching } ] or ) across multiple lines when key is pressed
+let g:AutoPairsMultilineClose = 0
 
 
 "more plugins
@@ -208,17 +194,31 @@ map <silent> <F4> :NERDTreeToggle<CR>
 " ctrlp
 let g:ctrlp_custom_ignore = '*.[do]'
 
+let g:ctrlp_by_filename = 1
+let g:ctrlp_by_regexp = 1
+
 " vim-sneak, press s again to go to next match
 let g:sneak#s_next = 1
 
-"
-nmap <silent><F3> :call <SID>cErrCheck(0)<CR>
-nmap ' :AsyncRun 
 let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 "YouCompleteMe settings
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "~/.config/nvim/bundle/YouCompleteMe/.ycm_extra_conf.py"
 
+
+"fugitive cfg
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+"clang complete cfg
+let g:clang_library_path = '/usr/lib/libclang.so.6.0'
+"let g:clang_snippets = 1
+let g:clang_auto_select = 1
+let g:clang_close_preview = 1
+let g:clang_user_options = '-std=c++17 -Iinclude'
+let g:clang_complete_patterns = 1
+
+let g:python_host_skip_check = 1
+let g:python_host_prog = '/usr/bin/python2'
 
 "augroup vimrc
 "    autocmd QuickFixCmdPost * call asyncrun#quickfix_toggle(10)
@@ -228,18 +228,6 @@ let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
 "au BufWritePost *.cpp,*.hpp,*.c,*.h call <SID>cErrCheck(1)
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
-
-"fugitive cfg
-autocmd BufReadPost fugitive://* set bufhidden=delete
-
-"clang_complete cfg
-let g:clang_library_path = '/usr/lib64/libclang.so.4.0'
-let g:clang_snippets = 1
-let g:clang_auto_select = 1
-let g:clang_close_preview = 1
-let g:clang_user_options = '-std=c++11 -Iinclude'
-let g:clang_complete_patterns = 1
-
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
@@ -256,7 +244,7 @@ inoremap <buffer> <C-S-Space <C-X><C-U><C-P>
 
 autocmd Filetype java nmap <silent><F3> :!clear && javac % && java $(echo % \| sed -e 's/\..*//')<CR>
 
-autocmd! BufWritePost * Neomake
+"autocmd! BufWritePost * Neomake
 
 let g:neomake_open_list = 2
 
@@ -271,7 +259,7 @@ let g:neomake_c_clang_maker = {
 
 let g:neomake_cpp_enabled_makers = ['clang']
 let g:neomake_cpp_clang_maker = {
-    \ 'args': ['-Wall', '-pedantic', '-Wsign-compare', '-Wno-sign-conversion', '-Iinclude', '-std=c++14'],
+    \ 'args': ['-Wall', '-pedantic', '-Wsign-compare', '-Wno-sign-conversion', '-Iinclude', '-std=c++17'],
     \ 'exe': 'clang++',
     \ }
 
@@ -282,3 +270,11 @@ let g:neomake_ante_ante_maker = {
     \              . '%W%f: %l\,%c%.%#warning:%m,'
     \              . '%C%.%#,' . "Compilation aborted."
     \ }
+
+
+" nvim-gdb bindings
+nnoremap <leader>dd :GdbStart gdb -q -f ./a.out
+nnoremap <leader>dl :GdbStart lldb ./ante<CR>
+nnoremap <leader>db :GdbBreakpointToggle<CR>
+nnoremap <leader>dn :GdbNext<CR>
+nnoremap <leader>dc :GdbContinue<CR>
