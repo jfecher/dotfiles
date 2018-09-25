@@ -1,0 +1,191 @@
+*nvimgdb.txt*  GDB, LLDB and PDB integration into neovim
+
+TBD
+
+==============================================================================
+CONTENTS                                                     *NvimgdbContents*
+
+    1. Usage ................ |NvimgdbUsage|
+    2. Commands ............. |NvigdbCommands|
+    3. Mappings ............. |NvimgdbMappings|
+    4. Variables ............ |NvimgdbVariables|
+    5. Limitations .......... |NvimgdbLimitations|
+    6. Development .......... |NvimgdbDevelopment|
+    7. Trivia ............... |NvimgdbTrivia|
+
+==============================================================================
+Section 1: Usage                                                *NvimgdbUsage*
+
+This plugin will facilitate debugging programs with GDB, LLDB or PDB. It will
+automatically show debugged source code, breakpoints, and define convenient
+keymaps similar to Qt Creator and Microsoft Visual Studio.
+
+To start debugging, execute `:GdbStart` command with GDB launch string as
+parameter: >
+
+    :GdbStart gdb -q a.out
+
+or alternatively `:GdbStartLLDB` with LLDB launch string as parameter: >
+
+    :GdbStartLLDB lldb a.out
+
+To debug Python programs, execute `:GdbStartPDB` and specify the python launch
+command as parameter: >
+
+    :GdbStartPDB python -m pdb main.py
+
+This will open a new tab with debugging view: horizontal split with source
+code and terminal. Then the whole set of commands will be available.
+
+The plugin performs configuration on the first stop of the debugger. If you
+launch by attaching to already running program, the first stop won't open the
+source code location of the frame. To catch up, just navigate around the call
+stack with `:GdbFrameUp` and `:GdbFrameDown`.
+
+To quit debugging, either close one of the debugger windows or execute the
+command `:GdbDebugStop`.
+
+==============================================================================
+Section 2: Commands                                          *NvimgdbCommands*
+
+                                                                   *:GdbStart*
+:GdbStart [command]     Start debugging session with the given GDB launch
+                        command.
+
+                                                               *:GdbStartLLDB*
+:GdbStartLLDB [cmd]     Start debugging session with the given LLDB launch
+                        command.
+
+                                                               *:GdbStartLLDB*
+:GdbStartPDB [cmd]      Start Python debugging session with the given PDB
+                        launch command.
+
+                                                               *:GdbDebugStop*
+:GdbDebugStop           Quit the debugging session. This command is implicitly
+                        executed if you close either of the windows created by
+                        the debugger.
+
+                                                        *:GdbBreakpointToggle*
+                                                      *:GdbBreakpointClearAll*
+:GdbBreakpointToggle    Manage breakpoints in the code: toggle, clear all
+:GdbBreakpointClearAll
+
+                                                                *:GdbContinue*
+                                                                    *:GdbNext*
+                                                                    *:GdbStep*
+                                                                  *:GdbFinish*
+:GdbContinue            Continue execution
+:GdbNext                Step over next statement
+:GdbStep                Step into next statement
+:GdbFinish              Step out current stack frame
+
+                                                                 *:GdbFrameUp*
+                                                               *:GdbFrameDown*
+:GdbFrameUp             Navigate up/down one stack frame
+:GdbFrameDown
+
+                                                               *:GdbInterrupt*
+:GdbInterrupt          Break program execution into the debugger
+
+                                                                *:GdbEvalWord*
+                                                               *:GdbEvalRange*
+:GdbEvalWord           Evaluate |<cword>| or |[range]|
+:<range>GdbEvalRange
+
+==============================================================================
+Section 3: Mappings                                          *NvimgdbMappings*
+
+The following mappings are defined initially unless the global variable
+g:nvimgdb_disable_start_keymaps is defined and evaluates to true:
+
+<leader>dd             Fill in command to start debugging with GDB, you will
+                       still need to enter <cr> to execute it.
+
+<leader>dl             Fill in command to start debugging with LLDB, you will
+                       still need to enter <cr> to execute it.
+
+<leader>dp             Fill in command to start debugging with PDB, you will
+                       still need to enter <cr> to execute it.
+
+When debugging session has started, the following mappings are defined:
+
+<f5>                   Continue                       (`:GdbContinue`)
+<f10>                  Next                           (`:GdbNext`)
+<f11>                  Step                           (`:GdbStep`)
+<f12>                  Finish                         (`:GdbFinish`)
+<f8>                   Toggle breakpoint              (`:GdbBreakpointToggle`)
+<c-p>                  Frame Up                       (`:GdbFrameUp`)
+<c-n>                  Frame Down                     (`:GdbFrameDown`)
+<f9>                   NORMAL: Evaluate word under cursor (`:GdbEvalWord`)
+                       VISUAL: Evaluate the range         (`:GdbEvalRange`)
+
+==============================================================================
+Section 4: Variables                                        *NvimgdbVariables*
+
+If the variable g:nvimgdb_disable_start_keymaps is defined and evaluates to
+true, the initial keymaps to start debugging session are suppressed
+(see |NvimgdbMappings|).
+
+The following variables could be defined to change default mappings for the
+debugging commands:
+
+g:nvimgdb_key_continue
+g:nvimgdb_key_next
+g:nvimgdb_key_step
+g:nvimgdb_key_finish
+g:nvimgdb_key_breakpoint
+g:nvimgdb_key_frameup
+g:nvimgdb_key_framedown
+g:nvimgdb_key_eval
+
+==============================================================================
+Section 5: Limitations                                    *NvimgdbLimitations*
+
+- The plugin is sensitive to the debugger settings. If prompt or frame format
+  is changed, random errors may occur.
+
+- LLDB uses the same frame format in multiple different situations. The
+  command "thread backtrace", for instance, will cause jumps in the source
+  code. Workaround: execute "frame info" in the debugger or
+  `:GdbFrameUp` followed by `:GdbFrameDown`.
+
+==============================================================================
+Section 6: Development                                    *NvimgdbDevelopment*
+
+- The keymaps are defined buffer-local for every buffer when it's entered,
+  and undefined when a buffer is left. This was done to ensure that users's
+  aren't overridden in long term. However, a more general solution could be
+  to ensure the original keymaps are preserved and restored after debugging
+  session: https://vi.stackexchange.com/questions/7734/how-to-save-and-restore-a-mapping
+
+- GDB is run via a proxy pty application, which allows to execute concealed
+  service commands, like "info breakpoints" on each stop. Thus, the plugin
+  is able to very carefully display current set of breakpoints with the
+  temporal ones disappearing after hit. Technically, the proxy app is a python
+  program that launches gdb in a pseudo terminal, listens a unix socket for
+  commands, and processes the output of GDB to filter out service commands.
+
+- LLDB is run in a wrapper that initializes the interpreter, and sources a
+  python script. The script opens a unix domain socket and receives side
+  commands from it in a background thread.
+
+- PDB is like GDB run via a proxy application. Although, PDB doesn't have
+  stock distinctive prefix to bypass the history. So an alias is created
+  for that nvim-gdb-info-breakpoints.
+
+- Breakpoints are queried from GDB, LLDB and PDB on every pause using the
+  established side channels: the pty proxy for GDB and PDB, and Python script
+  running inside the LLDB. The communication is done via unix domain sockets
+  (see lib/info_breakpoints.py).
+
+==============================================================================
+Section 7: Trivia                                              *NvimgdbTrivia*
+
+License inherits from neovim's.
+
+Patches are welcome to https://github.com/sakhnik/nvim-gdb.vim
+
+The original version was taken from nvim source code (Thiago de Arruda)
+https://github.com/neovim/neovim/blob/master/contrib/gdb/neovim_gdb.vim
+
+ vim: set tw=78 ts=8 ft=help norl:
