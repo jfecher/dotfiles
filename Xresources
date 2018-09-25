@@ -1,9 +1,11 @@
 
 *background: #000000
+!*background: #1d2021
 *foreground: #ffffff
 
-*color0:  #555555   
-*color8:  #444444
+*color0:  #777777
+*color8:  #777777
+!*color8:  #444444
 
 !red
 *color1:  #f92672
@@ -36,7 +38,13 @@
 !xterm stuff
 !xterm*faceName: xft:DejaVu Sans Mono:size=13
 !xterm*faceName: FantasqueSansMono-Regular:size=14
-xterm*faceName: Literation Mono Powerline:size=10
+xterm*faceName: Hasklug Nerd Font:size=20
 xterm*dynamicColors: true
 xterm*utf8: 2
 xterm*transparent: true
+
+urxvt.font: xft:Hasklug Nerd Font:size=20
+urxvt.transparent: true
+urxvt.scrollBar: hidden
+urxvt.letterSpace: -1
+urxvt.shading: 25

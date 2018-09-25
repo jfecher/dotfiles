@@ -49,14 +49,20 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/rndmprsn/Code/Ante/pygments"
+export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-export WINEPREFIX='/run/media/rndmprsn/'
-# export WINEARCH='wine64'
+export WINEPREFIX='/home/rndmprsn/.wine'
+export WINEARCH='win64'
+
+export JAVA_HOME='/usr/lib/jvm/java-8-openjdk'
+export JDK_HOME='/usr/lib/jvm/java-8-openjdk'
 
 export VISUAL='nvim'
 export EDITOR='nvim'
 source $ZSH/oh-my-zsh.sh
+
+source ~/.config/nvim/bundle/gruvbox/gruvbox_256palette.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -80,14 +86,18 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-[ -n "$XTERM_VERSION" ] && transset-df -a >/dev/null
+# [ -n "$XTERM_VERSION" ] && transset-df -a >/dev/null
 
-. /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# . /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 export CC='clang'
 export CXX='clang++'
 
 export STEAM_FRAME_FORCE_CLOSE=1
+alias divinity='pushd; cd /home/rndmprsn/.local/share/Steam/steamapps/common/Divinity\ Original\ Sin\ Enhanced\ Edition && optirun ./EoCApp; xrandr --size 3840x2160; popd'
+
+alias randomize_background='feh --bg-fill "/home/rndmprsn/Pictures/`ls /home/rndmprsn/Pictures | sort -R | tail -1 &`"'
+alias randomize_theme='wal -i "/home/rndmprsn/Pictures/`ls /home/rndmprsn/Pictures | sort -R | tail -1 &`"'
 
 alias install='sudo pacman -S'
 alias uninstall='sudo pacman -Rsn'
@@ -99,6 +109,8 @@ alias ls='ls --color=auto'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+
+alias nuwave='/home/rndmprsn/Code/Ante/wifi/nuwave &'
 
 cdls() {
     cd $1
@@ -120,14 +132,13 @@ alias cpf='cp -avr'
 alias uniso='7z x'
 
 alias rs='cd $WINEPREFIX/drive_c/Program\ Files\ \(x86\)/Rosetta\ Stone/Rosetta\ Stone\ Version\ 3; wine RosettaStoneVersion3.exe'
-alias mrs='sudo mkdir -p /run/media/rndmprsn && sudo chmod 777 /run/media/rndmprsn && sudo chown rndmprsn /run/media/rndmprsn && sudo chgrp rndmprsn /run/media/rndmprsn'
 
 alias v='nvim'
-alias vima='cd /home/rndmprsn/Code/Ante/master && nvim src/compiler.cpp'
-alias ante='/home/rndmprsn/Code/Ante/master/ante'
-alias zy='/home/rndmprsn/Code/ZyScript_old/zy'
+alias vima='cd /home/rndmprsn/Code/Ante/Ante && nvim src/compiler.cpp'
+alias ante='/home/rndmprsn/Code/Ante/Ante/ante'
 
-alias grapher='python /home/rndmprsn/Code/grapher/grapher.py'
+# -c jpeg, xv, yuv
+alias pkmn='optirun -c jpeg run_scaled --scale=4 wine /home/rndmprsn/Downloads/Pokemon\ Rejuvenation/Game.exe'
 
 alias ncm='mpd; ncmpcpp'
 alias screenshot='gnome-screenshot'
@@ -135,29 +146,28 @@ alias screenshot='gnome-screenshot'
 alias ping='ping -c 1 www.google.com'
 
 alias bar='~/Code/bar/bar.sh'
-alias vol='~/Documents/pa-vol.sh'
+alias vol='~/Code/pa-vol.sh'
 
 # color theme
-if [ "$TERM" = "linux" ]; then
-    echo -en "\e]P0000000" #black
-    echo -en "\e]P8555555" #darkgrey
-    echo -en "\e]P9F92672" #darkred
-    echo -en "\e]P1F92672" #red
-    echo -en "\e]PAA6E22E" #darkgreen
-    echo -en "\e]P2A6E22E" #green
-    echo -en "\e]PBE6DB74" #brown
-    echo -en "\e]P3E6DB74" #yellow
-    echo -en "\e]PC66D9EF" #darkblue
-    echo -en "\e]P466D9EF" #blue
-    echo -en "\e]PDAE81FF" #purple
-    echo -en "\e]P5AE81FF" #purple
-    echo -en "\e]PE66D9EF" #darkcyan
-    
-    #echo -en "\e]P666D9EF" #cyan
-    echo -en "\e]P6555555" #cyan
-    
-    echo -en "\e]P7FFFFFF" #white
-    echo -en "\e]PFFFFFFF" #darkgrey
-fi
+#if [ "$TERM" = "linux" ]; then
+#    echo -en "\e]P0000000" #black
+#    echo -en "\e]P8555555" #darkgrey
+#    echo -en "\e]P9F92672" #darkred
+#    echo -en "\e]P1F92672" #red
+#    echo -en "\e]PAA6E22E" #darkgreen
+#    echo -en "\e]P2A6E22E" #green
+#    echo -en "\e]PBE6DB74" #brown
+#    echo -en "\e]P3E6DB74" #yellow
+#    echo -en "\e]PC66D9EF" #darkblue
+#    echo -en "\e]P466D9EF" #blue
+#    echo -en "\e]PDAE81FF" #purple
+#    echo -en "\e]P5AE81FF" #purple
+#    echo -en "\e]PE66D9EF" #darkcyan
+#    
+#    echo -en "\e]P666D9EF" #cyan
+#    
+#    echo -en "\e]P7FFFFFF" #white
+#    echo -en "\e]PFFFFFFF" #darkgrey
+#fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
