@@ -1,0 +1,22 @@
+{
+    "languageserver": {
+        "haskell": {
+            "command": "hie-wrapper",
+            "rootPatterns": [".stack.yaml", "cabal.config", "package.yaml"],
+            "filetypes": ["hs", "lhs", "haskell"],
+            "initializationOptions": {
+                "languageServerHaskell": {}
+            }
+        },
+        "ccls": {
+            "command": "ccls",
+            "rootPatterns": [".ccls-root", "compile_commands.json"],
+            "filetypes": ["c", "cpp", "h", "hpp"],
+            "initializationOptions": {
+                "cache": {
+                    "directory": ".ccls-cache"
+                }
+            }
+        }
+    }
+}
