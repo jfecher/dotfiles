@@ -8,7 +8,7 @@ syn keyword anType f16 f32 f64 isz usz
 syn keyword anType c8 c32 unit bool
 syn match anType '\w\@<![A-Z]\w*'
 
-syn match anOp '[+^\-\*/%#@&=<>|!:?]'
+syn match anOp '[+^\-\*/%#@&=<>|!:?$]'
 
 
 syn match comment '//.*$' contains=notes,mlcmt
