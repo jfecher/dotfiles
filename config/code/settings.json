@@ -1,0 +1,125 @@
+{
+    "window.zoomLevel": 1,
+    "editor.fontFamily": "'Hasklug Nerd Font', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.fontSize": 14,
+    "files.exclude": {
+        "**/.gitattributes": true,
+        "**/.gitmodules": true,
+        "**/.idea": true,
+        "**/*.cbp": true,
+        "**/*.cmake": true,
+        "**/*.so": true,
+        "**/cmake-build-debug": true,
+        "**/CMakeCache.txt*": true,
+        "**/CMakeFiles": true,
+        "**/CPack*": true,
+        "**/llvm": true,
+        "**/llvm_build": true,
+        "**/obj": true
+    },
+    "files.hotExit": "off",
+    "editor.minimap.enabled": false,
+    "terminal.external.linuxExec": "kitty",
+
+    "vim.easymotionMarkerBackgroundColor": "#aa1111",
+    "vim.easymotionMarkerWidthPerChar": 8,
+    "vim.easymotionMarkerHeight": 19,
+    "vim.easymotionMarkerFontFamily": "Hasklug Nerd Font",
+    "vim.easymotionMarkerFontSize": "14",
+
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors.normal": ["#8FBCBB", "#434C5E"],
+    "vim.statusBarColors.insert": "#BF616A",
+    "vim.statusBarColors.visual": "#B48EAD",
+    "vim.statusBarColors.visualline": "#B48EAD",
+    "vim.statusBarColors.visualblock": "#A3BE8C",
+    "vim.statusBarColors.replace": "#D08770",
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "j"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [";"],
+            "after": [":"]
+        },
+        {
+            "before": ["j"],
+            "after": ["h"]
+        },
+        {
+            "before": ["i"],
+            "after": ["k"]
+        },
+        {
+            "before": ["k"],
+            "after": ["j"]
+        },
+        {
+            "before": ["j"],
+            "after": ["h"]
+        },
+        {
+            "before": ["<Space>"],
+            "after": ["i"]
+        },
+        {
+            "before": ["h"],
+            "after": ["i"]
+        }
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [";"],
+            "after": [":"]
+        },
+        {
+            "before": ["j"],
+            "after": ["h"]
+        },
+        {
+            "before": ["i"],
+            "after": ["k"]
+        },
+        {
+            "before": ["k"],
+            "after": ["j"]
+        },
+        {
+            "before": ["j"],
+            "after": ["h"]
+        },
+        {
+            "before": ["<Space>"],
+            "after": ["i"]
+        },
+        {
+            "before": ["h"],
+            "after": ["i"]
+        }
+    ],
+    "vim.leader": "\\",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-s>": false
+    },
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#8FBCBB",
+        "statusBar.noFolderBackground": "#8FBCBB",
+        "statusBar.debuggingBackground": "#8FBCBB",
+        "statusBar.foreground": "#434C5E"
+    },
+    "terminal.integrated.rendererType": "dom",
+    "window.menuBarVisibility": "toggle",
+    "workbench.activityBar.visible": true,
+    "workbench.colorTheme": "Gruvbox Dark (Hard)",
+    "debug.onTaskErrors": "showErrors"
+}
