@@ -3,7 +3,13 @@
 " Best view with a 256 color terminal and Powerline fonts
 
 set nocompatible
-execute pathogen#infect('/home/rndmprsn/.config/nvim/bundle/{}')
+
+if has('gui')
+    execute pathogen#infect('C:/Program Files (x86)/Vim/vim82/bundle/{}')
+else
+    execute pathogen#infect('/home/rndmprsn/.config/nvim/bundle/{}')
+endif
+
 syntax on
 filetype plugin indent on
 
@@ -26,6 +32,11 @@ let g:UltiSnipsJumpBackwardTrigger="["
 
 let g:UltiSnipsEditSplit="vertical"
 
+if has('gui')
+    set guioptions=''
+    set guifont=Hasklug\ NF:h12:w7
+    set clipboard=unnamed
+endif
 
 set background=dark
 colorscheme gruvbox
@@ -129,6 +140,10 @@ vnoremap k j
 vnoremap j h
 
 nnoremap , ;
+
+nnoremap d "_d
+xnoremap d "_d
+vnoremap d "_d
 
 nmap <silent><C-w>j <C-w>h
 nmap <silent><C-w>i <C-w>j
