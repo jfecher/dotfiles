@@ -17,10 +17,13 @@ set $term kitty
 
 default_border none
 
+include "$HOME/.cache/wal/colors-sway"
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /home/rndmprsn/Pictures/milky_way.jpg fill
+output * bg $wallpaper fill
+
 #
 # Example configuration:
 #
@@ -75,7 +78,7 @@ output * bg /home/rndmprsn/Pictures/milky_way.jpg fill
     bindsym $mod+w kill
 
     # Start your launcher
-    bindsym $mod+d exec dmenu_run -fn 'Liberastika:size=12'
+    bindsym $mod+d exec . "$HOME/.cache/wal/colors.sh" && dmenu_run -fn 'Liberastika:size=12' -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.

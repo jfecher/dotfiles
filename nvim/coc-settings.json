@@ -1,12 +1,10 @@
 {
     "languageserver": {
         "haskell": {
-            "command": "hie-wrapper",
-            "rootPatterns": [".stack.yaml", "cabal.config", "package.yaml"],
-            "filetypes": ["hs", "lhs", "haskell"],
-            "initializationOptions": {
-                "languageServerHaskell": {}
-            }
+            "command": "haskell-language-server-wrapper",
+            "args": ["--lsp"],
+            "rootPatterns": ["*.cabal", ".stack.yaml", "cabal.config", "hie.yaml"],
+            "filetypes": ["hs", "lhs", "haskell", "lhaskell"]
         },
         "ccls": {
             "command": "ccls",
@@ -17,6 +15,12 @@
                     "directory": ".ccls-cache"
                 }
             }
+        },
+        "ocaml-lsp": {
+            "command": "opam",
+            "args": ["config", "exec", "--", "ocamllsp"],
+            "rootPatterns": ["Makefile"],
+            "filetypes": ["ocaml", "reason"]
         }
     }
 }

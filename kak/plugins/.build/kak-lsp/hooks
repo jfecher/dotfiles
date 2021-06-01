@@ -1,0 +1,4 @@
+
+
+    cargo build --release --locked
+    cargo install --force --path .

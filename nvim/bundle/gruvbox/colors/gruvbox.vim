@@ -114,7 +114,7 @@ let s:gb.bright_blue    = ['#83a598', 109]     " 131-165-152
 let s:gb.bright_purple  = ['#d3869b', 175]     " 211-134-155
 let s:gb.bright_aqua    = ['#8ec07c', 108]     " 142-192-124
 let s:gb.bright_orange  = ['#fe8019', 208]     " 254-128-25
-  
+
 let s:gb.neutral_red    = ['#cc241d', 124]     " 204-36-29
 let s:gb.neutral_green  = ['#98971a', 106]     " 152-151-26
 let s:gb.neutral_yellow = ['#d79921', 172]     " 215-153-33
@@ -454,6 +454,7 @@ call s:HL('GruvboxYellowSign', s:yellow, s:sign_column, s:invert_signs)
 call s:HL('GruvboxBlueSign', s:blue, s:sign_column, s:invert_signs)
 call s:HL('GruvboxPurpleSign', s:purple, s:sign_column, s:invert_signs)
 call s:HL('GruvboxAquaSign', s:aqua, s:sign_column, s:invert_signs)
+call s:HL('GruvboxOrangeSign', s:orange, s:sign_column, s:invert_signs)
 
 " }}}
 
@@ -688,8 +689,8 @@ hi! link EasyMotionShade Comment
 " }}}
 " Sneak: {{{
 
-autocmd ColorScheme gruvbox hi! link Sneak Search
-autocmd ColorScheme gruvbox hi! link SneakLabel Search
+hi! link Sneak Search
+hi! link SneakLabel Search
 
 " }}}
 " Indent Guides: {{{
@@ -887,6 +888,30 @@ hi! link NERDTreeToggleOff GruvboxRed
 
 call s:HL('multiple_cursors_cursor', s:none, s:none, s:inverse)
 call s:HL('multiple_cursors_visual', s:none, s:bg2)
+
+" }}}
+" coc.nvim: {{{
+
+hi! link CocErrorSign GruvboxRedSign
+hi! link CocWarningSign GruvboxOrangeSign
+hi! link CocInfoSign GruvboxYellowSign
+hi! link CocHintSign GruvboxBlueSign
+hi! link CocErrorFloat GruvboxRed
+hi! link CocWarningFloat GruvboxOrange
+hi! link CocInfoFloat GruvboxYellow
+hi! link CocHintFloat GruvboxBlue
+hi! link CocDiagnosticsError GruvboxRed
+hi! link CocDiagnosticsWarning GruvboxOrange
+hi! link CocDiagnosticsInfo GruvboxYellow
+hi! link CocDiagnosticsHint GruvboxBlue
+
+hi! link CocSelectedText GruvboxRed
+hi! link CocCodeLens GruvboxGray
+
+call s:HL('CocErrorHighlight', s:none, s:none, s:undercurl, s:red)
+call s:HL('CocWarningHighlight', s:none, s:none, s:undercurl, s:orange)
+call s:HL('CocInfoHighlight', s:none, s:none, s:undercurl, s:yellow)
+call s:HL('CocHintHighlight', s:none, s:none, s:undercurl, s:blue)
 
 " }}}
 
@@ -1340,15 +1365,15 @@ hi! link markdownIdDeclaration markdownLinkText
 " hi! link haskellConditional GruvboxAqua
 " hi! link haskellLet GruvboxOrange
 "
-hi! link haskellType GruvboxFg1
+hi! link haskellType GruvboxBlue
 hi! link haskellIdentifier GruvboxFg1
 hi! link haskellSeparator GruvboxFg1
 hi! link haskellDelimiter GruvboxFg4
-hi! link haskellOperators GruvboxBlue
+hi! link haskellOperators GruvboxAqua
 "
 hi! link haskellBacktick GruvboxOrange
 hi! link haskellStatement GruvboxOrange
-hi! link haskellConditional GruvboxOrange
+" hi! link haskellConditional GruvboxOrange
 
 hi! link haskellLet GruvboxAqua
 hi! link haskellDefault GruvboxAqua

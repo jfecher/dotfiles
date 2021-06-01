@@ -28,9 +28,12 @@ let g:UltiSnipsEditSplit="vertical"
 
 
 set background=dark
+set termguicolors
 colorscheme gruvbox
-" colorscheme ante
-" colorscheme monokai
+
+" Always set background to black to get transparency in the terminal
+hi Normal guibg=#000
+hi SignColumn guibg=#000
 
 """"""""
 if has('autocmd')
@@ -40,7 +43,7 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-set clipboard+=unnamedplus
+set clipboard^=unnamed,unnamedplus
 
 " Use :help 'option' to see the documentation for the given option.
 set backspace=indent,eol,start
@@ -103,12 +106,12 @@ set fileformats=unix,dos,mac
 set completeopt=menuone,longest
 
 "folding
-" set fdm=manual
+" set foldmethod=indent
 " nnoremap F zfa}
 
 
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.so,*.cbp
-set wildignore+=*.o,*.ao,*.d,*.gch,*.class,*.obj,*/llvm/*,*/build/*,*/llvm_build/*
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.so,*.cbp,*/target/*
+set wildignore+=*.o,*.ao,*.d,*.gch,*.class,*.obj,*/build/*,*/llvm_build/*
 
 
 "
@@ -137,6 +140,10 @@ nmap <silent><C-w>J <C-w>H
 nmap <silent><C-w>I <C-w>J
 nmap <silent><C-w>j <C-w>h
 nmap <silent><C-w>i <C-w>j
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Pressing esc is too much of a stretch, this isn't emacs
 inoremap jj <Esc>
@@ -178,13 +185,9 @@ nmap <silent>t :terminal<CR><space>
 " tnoremap <silent>J <C-\><C-n>:hide bp<CR>
 " tnoremap <silent>L <C-\><C-n>:hide bn<CR>
 
-hi def link cCustomFunc Function
-hi def link cCustomType Type
-
 " vim-airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='badwolf'
-" let g:airline_theme='gruvbox'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 
 let mapleader = '\'
@@ -199,30 +202,21 @@ let g:AutoPairsMultilineClose = 0
 "more plugins
 "
 set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-"let b:syntastic_cpp_cflags = '--std=c++14'
-"let g:syntastic_cpp_remove_include_errors = 1
-"let g:syntastic_cpp_check_header = 1
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 0
 
 "NERDTREE
 map <silent> <F4> :NERDTreeToggle<CR>
 
 " ctrlp
-let g:ctrlp_custom_ignore = '((*.[do]))|(((llvm)|(build))/.*)'
+let g:ctrlp_custom_ignore = '((*.[do]))|(((build)|(target))/.*)'
 
-let g:ctrlp_by_filename = 1
-let g:ctrlp_by_regexp = 1
+" let g:ctrlp_by_filename = 1
+" let g:ctrlp_by_regexp = 1
 
 " vim-sneak, press s again to go to next match
 let g:sneak#s_next = 1
 
-let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
+" let g:airline_section_error = airline#section#create_right(['%{g:asyncrun_status}'])
 
 "YouCompleteMe settings
 let g:ycm_global_ycm_extra_conf = "~/.config/nvim/bundle/YouCompleteMe/.ycm_extra_conf.py"
@@ -250,6 +244,9 @@ let g:python_host_prog = '/usr/bin/python2'
 "au BufWritePost *.cpp,*.hpp,*.c,*.h call <SID>cErrCheck(1)
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
 autocmd BufEnter *.cpp,*.hpp,*.c,*.h syn match cCustomType /\<[A-Z]\w*\>/
+
+hi def link cCustomFunc Function
+hi def link cCustomType Type
 
 "Apply hard text wrapping for .tex files
 autocmd BufEnter *.tex nnoremap f :%s/\(.\{80\}\ \)/\1\r/g<Enter>
@@ -311,19 +308,6 @@ nnoremap <leader>k :VBGkill<CR>
 autocmd Filetype coq nnoremap ,, :CoqRunToCursol<CR>C-wJ
 
 
-"haskell config
-augroup interoMaps
-    au!
-    au FileType haskell nnoremap <silent><leader>is :InteroStart<CR>
-    au FileType haskell nnoremap <silent><leader>ik :InteroKill<CR>
-    au FileType haskell nnoremap <silent><leader>ioh :InteroOpen<CR>
-    au FileType haskell nnoremap <silent><leader>iov :InteroOpen<CR><C-W>H
-
-    "auto reload on save
-    au BufWritePost *.hs InteroReload
-augroup END
-
-
 "CoC config
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
@@ -360,6 +344,7 @@ nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 au FileType haskell nmap <silent> gd <Plug>(coc-definition)
 au FileType cpp nmap <silent> gd <Plug>(coc-definition)
+au FileType rust nmap <silent> gd <Plug>(coc-definition)
 
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -437,4 +422,16 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 packadd termdebug
-nnoremap <leader>db :Termdebug<CR>ifile ante<CR><Esc><Esc><C-w>j<C-w>j<C-w>L
+nnoremap <leader>db :Termdebug<CR>ifile target/debug/ante<CR>
+
+let g:termdebug_wide = 1
+set laststatus=1
+
+" haskell config
+let g:haskell_indent_if = 0
+let g:haskell_indent_let = 0
+
+
+hi def link anOp GruvboxRed
+hi def link anType GruvboxBlueBold
+hi def link anModule GruvboxAqua

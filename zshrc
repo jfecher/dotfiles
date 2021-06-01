@@ -48,8 +48,10 @@ ZSH_THEME="sunaku"
 plugins=(git)
 
 # User configuration
+# alias time=hyperfine
+alias storage=dust
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/rndmprsn/Code/Ante/pygments"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/rndmprsn/Code/Ante/pygments:/home/rndmprsn/.cargo/bin:/home/rndmprsn/.ghcup/bin"
 export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 export WINEPREFIX='/home/rndmprsn/.wine'
@@ -57,6 +59,7 @@ export WINEARCH='win64'
 
 export JAVA_HOME='/usr/lib/jvm/java-8-openjdk'
 export JDK_HOME='/usr/lib/jvm/java-8-openjdk'
+export _JAVA_AWT_WM_NONREPARENTING=1
 
 export VISUAL='nvim'
 export EDITOR='nvim'
@@ -90,20 +93,27 @@ source ~/.config/nvim/bundle/gruvbox/gruvbox_256palette.sh
 
 # . /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-export CC='clang'
-export CXX='clang++'
+export CC='gcc'
+export CXX='g++'
+
+export RUST_BACKTRACE=0
 
 export STEAM_FRAME_FORCE_CLOSE=1
 alias divinity='pushd; cd /home/rndmprsn/.local/share/Steam/steamapps/common/Divinity\ Original\ Sin\ Enhanced\ Edition && optirun ./EoCApp; xrandr --size 3840x2160; popd'
 
-alias randomize_background='feh --bg-fill "/home/rndmprsn/Pictures/`ls /home/rndmprsn/Pictures | sort -R | tail -1 &`"'
-alias randomize_theme='wal -i "/home/rndmprsn/Pictures/`ls /home/rndmprsn/Pictures | sort -R | tail -1 &`"'
+alias randomize_background='swaybg -i /home/rndmprsn/Pictures/`ls /home/rndmprsn/Pictures/ | shuf | head -1`'
+alias randomize_theme='I=`ls /home/rndmprsn/Pictures | shuf | head -1`; wal -i /home/rndmprsn/Pictures/$I; swaybg -i /home/rndmprsn/Pictures/$I'
 
-alias install='sudo pacman -S'
+alias install='sudo pacman -Sy'
 alias uninstall='sudo pacman -Rsn'
-alias search='pacman -Ss'
 alias uninstall-orphans='sudo pacman -Rsn $(pacman -Qdtq)'
-alias update='sudo pacman -Syu'
+alias update='sudo pacman -Syuu'
+
+alias gs='git status'
+alias ga='git add'
+alias gc='git commit'
+alias gpoh='git push origin HEAD'
+alias gq='git add . && git commit -m "quick fix" && git push'
 
 alias ls='ls --color=auto'
 alias ..='cd ..'
@@ -134,14 +144,19 @@ alias uniso='7z x'
 alias rs='cd $WINEPREFIX/drive_c/Program\ Files\ \(x86\)/Rosetta\ Stone/Rosetta\ Stone\ Version\ 3; wine RosettaStoneVersion3.exe'
 
 alias v='nvim'
-alias vima='cd /home/rndmprsn/Code/Ante/Ante && nvim src/compiler.cpp'
-alias ante='/home/rndmprsn/Code/Ante/Ante/ante'
+alias vima='cd /home/rndmprsn/Code/Ante/ante && nvim src/main.rs'
+alias ante='/home/rndmprsn/Code/Ante/ante/target/debug/ante'
+alias ctest='cargo test -- --nocapture'
+
+alias hugo='/home/rndmprsn/Code/Ante/website/hugo'
+
+# export LLVM_SYS_100_PREFIX=$(llvmenv prefix)
 
 # -c jpeg, xv, yuv
 alias pkmn='optirun -c jpeg run_scaled --scale=4 wine /home/rndmprsn/Downloads/Pokemon\ Rejuvenation/Game.exe'
 
 alias ncm='mpd; ncmpcpp'
-alias screenshot='gnome-screenshot'
+alias screenshot='grim'
 
 alias ping='ping -c 1 www.google.com'
 
@@ -171,3 +186,10 @@ alias vol='~/Code/pa-vol.sh'
 #fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# opam configuration
+test -r /home/rndmprsn/.opam/opam-init/init.zsh && . /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# nix-env config
+source /home/rndmprsn/.nix-profile/etc/profile.d/nix.sh
+export PATH="$HOME/.nix_profile/bin:$PATH"

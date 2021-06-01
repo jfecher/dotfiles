@@ -5,42 +5,44 @@ syn keyword anBool true false
 syn keyword anType i8 i16 i32 i64 ref
 syn keyword anType u8 u16 u32 u64
 syn keyword anType f16 f32 f64 isz usz
-syn keyword anType c8 c32 unit bool
+syn keyword anType char unit bool string
 syn match anType '\w\@<![A-Z]\w*'
 
-syn match anOp '[+^\-\*/%#@&=<>|!:?$]'
-
+syn match anOp '[+^\-\*/%#@&=<>|!?]'
+syn match anOp ':='
 
 syn match comment '//.*$' contains=notes,mlcmt
 syn region mlcmt start='/\*' end='\*/' contains=notes
-syn region preproc start='!\[' end=']' contains=comment,mlcmt,funcCall,stringLiteral,charLiteral,integerLiteral,doubleLiteral,anType
+syn region preproc start='!\[' end=']' contains=comment,mlcmt,anFnCall,stringLiteral,charLiteral,integerLiteral,doubleLiteral,anType
+syn region quote start='`' end='`' contains=comment,mlcmt,anFnCall,stringLiteral,charLiteral,integerLiteral,doubleLiteral,anType,anOp,anKeywords
 
 syn match preproc '![a-z_]\w*'
 
 syn match anType '\'[a-z_]\w*'
 
+syn match anModule '\<[A-Z]\w*\.'
+
 syn keyword anKeywords if elif else import with
-syn keyword anKeywords for in do while continue
-syn keyword anKeywords break return this is isnt
-syn keyword anKeywords impl new match trait module
-syn keyword anKeywords type where when block
-syn keyword anKeywords and or not then do as given
+syn keyword anKeywords in do continue try
+syn keyword anKeywords return is isnt fn opaque
+syn keyword anKeywords impl match trait module recur
+syn keyword anKeywords type and
+syn keyword anKeywords or not then do as given
 
-syn keyword anMods pub pro pri const ante let mut global
+syn keyword anModifiers mut extern
 
-" syn match funcCall '\w\@<!\w\+\((\@=\)' contains=anKeywords
-syn match funcCall '\([)\]"\'A-Za-z_0-9] *\)\@<![a-z]\w*\(\(\( *[(\'"\[]\)\|\( \+\w\)\)\@=\)\( \+\(do\|mut\|ante\|then\|and\|or\|with\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-" syn match funcCall '\([)\]"\'A-Za-z_0-9] *\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|then\|with\|and\|or\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-syn match funcCall '\(\(and\|or\|not\|then\|match\|while\|if\|elif\|else\|import\|for\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\|ante\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|mut\|then\|with\|and\|or\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-syn match funcCall '\(\(|>\) *\)\@<=[a-z]\w*' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-syn match funcCall '[a-z]\w*\(\( *<|\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-syn match funcCall '[a-z]\w*\(\( *{\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-
-syn match anOp '`\w\+`'
+syn match anFnCall '\([)\]"\'A-Za-z_0-9] *\)\@<![a-z]\w*\(\(\( *[(\'"\[]\)\|\( \+\w\)\)\@=\)\( \+\(do\|mut\|ante\|then\|and\|or\|\\\|with\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match anFnCall '\(\(and\|or\|not\|then\|match\|while\|if\|elif\|else\|import\|for\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\|ante\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|mut\|then\|with\|and\|or\|\\\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match anFnCall '\(\(|>\) *\)\@<=[a-z]\w*' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match anFnCall '[a-z]\w*\(\( *<|\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match anFnCall '[a-z]\w*\(\( *{\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match anFnCall '\\\w\+' contains=anOp
 
 syn region stringLiteral start='"' end='"' contains=interpolation
 
-syn region interpolation start='\${' end='}' contains=comment,mlcmt,funcCall,stringLiteral,charLiteral,integerLiteral,doubleLiteral,anType,anKeywords,funcDef,anBool,anOp
+syn region interpolation start='\${' end='}' contains=comment,mlcmt,anFnCall,stringLiteral,charLiteral,integerLiteral,doubleLiteral,anType,anKeywords,funcDef,anBool,anOp
+
+syn match interpolation '\$\w\+' contains=anOp
 
 syn match charLiteral '\'.\''
 syn match charLiteral '\'\\.\''
@@ -59,14 +61,18 @@ hi def link notes          Todo
 hi def link comment        Comment
 hi def link mlcmt          Comment
 hi def link preproc        PreProc
+hi def link quote          PreProc
 hi def link anOp           Keyword
 hi def link anKeywords     Keyword
-hi def link anMods         Keyword
+hi def link anModifiers    Keyword
 hi def link anBool         Boolean
 hi def link funcDef        Function
-hi def link funcCall       Function
+hi def link anFnCall       Function
+hi def link anModPath      ModPath
 hi def link anType         Type
 hi def link stringLiteral  String
 hi def link charLiteral    String
 hi def link integerLiteral Number
 hi def link doubleLiteral  Number
+
+hi def link anControl      ModPath
