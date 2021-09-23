@@ -17,12 +17,12 @@ set $term kitty
 
 default_border none
 
-include "$HOME/.cache/wal/colors-sway"
+# include "$HOME/.cache/wal/colors-sway"
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg $wallpaper fill
+output * bg /home/rndmprsn/Pictures/wallpaper.png fill
 
 #
 # Example configuration:
@@ -67,12 +67,12 @@ output * bg $wallpaper fill
     bindsym $mod+Return exec $term
     bindsym $mod+semicolon exec firefox
 
-    bindsym XF86AudioMute exec /home/rndmprsn/Code/pa-vol.sh mute
-    bindsym XF86AudioLowerVolume exec /home/rndmprsn/Code/pa-vol.sh down
-    bindsym XF86AudioRaiseVolume exec /home/rndmprsn/Code/pa-vol.sh up
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -3%
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +3%
 
-    bindsym XF86MonBrightnessDown exec light -U 10
-    bindsym XF86MonBrightnessUp exec light -A 10
+    bindsym XF86MonBrightnessDown exec light -U 5
+    bindsym XF86MonBrightnessUp exec light -A 5
 
     # Kill focused window
     bindsym $mod+w kill
@@ -229,9 +229,9 @@ focus_follows_mouse no
 
 seat seat0 xcursor_theme default 24
 
-output eDP-1 scale 2.0
+# output eDP-1 scale 2.0
 
-input 1739:31251:DLL07BE:01_06CB:7A13_Touchpad {
+input 5349:25870:ZNT0001:00_14E5:650E_Touchpad {
     tap enabled
     dwt disabled
     scroll_factor 1.0

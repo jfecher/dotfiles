@@ -11,7 +11,7 @@ ZSH_THEME="sunaku"
 # CASE_SENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -45,14 +45,14 @@ ZSH_THEME="sunaku"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git fast-syntax-highlighting)
 
 # User configuration
 # alias time=hyperfine
 alias storage=dust
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/rndmprsn/Code/Ante/pygments:/home/rndmprsn/.cargo/bin:/home/rndmprsn/.ghcup/bin"
-export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+# export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 export WINEPREFIX='/home/rndmprsn/.wine'
 export WINEARCH='win64'
@@ -122,7 +122,7 @@ alias ....='cd ../../..'
 
 alias nuwave='/home/rndmprsn/Code/Ante/wifi/nuwave &'
 
-cdls() {
+c() {
     cd $1
     ls
 }
@@ -185,11 +185,15 @@ alias vol='~/Code/pa-vol.sh'
 #    echo -en "\e]PFFFFFFF" #darkgrey
 #fi
 
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # opam configuration
 test -r /home/rndmprsn/.opam/opam-init/init.zsh && . /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # nix-env config
-source /home/rndmprsn/.nix-profile/etc/profile.d/nix.sh
-export PATH="$HOME/.nix_profile/bin:$PATH"
+# source /home/rndmprsn/.nix-profile/etc/profile.d/nix.sh
+# export PATH="$HOME/.nix_profile/bin:$PATH"
+
+if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
+	XKB_DEFAULT_LAYOUT=us exec sway
+fi

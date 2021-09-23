@@ -6,7 +6,7 @@
     // Choose the order of the modules
     "modules-left": ["cpu", "memory", "sway/workspaces"],
     "modules-center": [],
-    "modules-right": ["pulseaudio", "network", "battery", "clock"],
+    "modules-right": ["pulseaudio", "backlight", "network", "battery", "clock"],
     // Modules configuration
     "sway/workspaces": {
          "disable-scroll": true
@@ -24,9 +24,9 @@
         "format": "{}% "
     },
     "backlight": {
-        // "device": "acpi_video1",
+        "device": "intel_backlight",
         "format": "{percent}% {icon}",
-        "format-icons": ["", ""]
+        "format-icons": ["☽", "☀️"]
     },
     "battery": {
         "states": {

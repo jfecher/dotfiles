@@ -26,13 +26,13 @@ syn keyword anKeywords if elif else import with
 syn keyword anKeywords in do continue try
 syn keyword anKeywords return is isnt fn opaque
 syn keyword anKeywords impl match trait module recur
-syn keyword anKeywords type and
+syn keyword anKeywords type and loop
 syn keyword anKeywords or not then do as given
 
 syn keyword anModifiers mut extern
 
 syn match anFnCall '\([)\]"\'A-Za-z_0-9] *\)\@<![a-z]\w*\(\(\( *[(\'"\[]\)\|\( \+\w\)\)\@=\)\( \+\(do\|mut\|ante\|then\|and\|or\|\\\|with\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
-syn match anFnCall '\(\(and\|or\|not\|then\|match\|while\|if\|elif\|else\|import\|for\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\|ante\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|mut\|then\|with\|and\|or\|\\\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
+syn match anFnCall '\(\(and\|or\|not\|then\|match\|if\|elif\|else\|import\|in\|do\|then\|export\|return\|new\|match\|xor\|mut\|ante\) \+\)\@<=[a-z]\w*\(\( *[(\'"\[]\| \+\w\)\@=\)\( \+\(do\|mut\|then\|with\|and\|or\|\\\|in\)\@!\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 syn match anFnCall '\(\(|>\) *\)\@<=[a-z]\w*' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 syn match anFnCall '[a-z]\w*\(\( *<|\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
 syn match anFnCall '[a-z]\w*\(\( *{\)\@=\)' contains=stringLiteral,charLiteral,anType,integerLiteral,doubleLiteral,anOp
