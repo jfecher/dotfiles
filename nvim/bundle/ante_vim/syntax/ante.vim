@@ -2,10 +2,6 @@ syn keyword notes contained TODO FIXME XXX NOTE
 
 syn keyword anBool true false
 
-syn keyword anType i8 i16 i32 i64 ref
-syn keyword anType u8 u16 u32 u64
-syn keyword anType f16 f32 f64 isz usz
-syn keyword anType char unit bool string
 syn match anType '\w\@<![A-Z]\w*'
 
 syn match anOp '[+^\-\*/%#@&=<>|!?]'
@@ -23,11 +19,11 @@ syn match anType '\'[a-z_]\w*'
 syn match anModule '\<[A-Z]\w*\.'
 
 syn keyword anKeywords if elif else import with
-syn keyword anKeywords in do continue try
-syn keyword anKeywords return is isnt fn opaque
-syn keyword anKeywords impl match trait module recur
-syn keyword anKeywords type and loop
-syn keyword anKeywords or not then do as given
+syn keyword anKeywords in do recur given resume
+syn keyword anKeywords return fn opaque where derive forward
+syn keyword anKeywords impl match trait module
+syn keyword anKeywords type and loop can effect handle
+syn keyword anKeywords or not then do via impls
 
 syn keyword anModifiers mut extern
 
@@ -52,7 +48,7 @@ syn match integerLiteral '\([A-Za-z0-9]\@<!\)0b[01_]\+\([ui]\(8\|16\|32\|64\|sz\
 syn match integerLiteral '\([A-Za-z0-9]\@<!\)0o[0-7_]\+\([ui]\(8\|16\|32\|64\|sz\)\)\?'
 syn match integerLiteral '\([A-Za-z0-9]\@<!\)0x[0-9A-Fa-f_]\+\([ui]\(8\|16\|32\|64\|sz\)\)\?'
 
-syn match doubleLiteral '\([A-Za-z0-9]\@<!\)\d\+\.\d*\(f\(16\|32\|64\)\)\?'
+syn match doubleLiteral '\([A-Za-z0-9]\@<!\)\d\+\.\d*\(f\(16\|32\|64\|\)\)\?'
 
 
 let b:current_syntax = "an"
