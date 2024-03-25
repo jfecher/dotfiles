@@ -24,6 +24,13 @@ default_border none
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /home/rndmprsn/Pictures/wallpaper.png fill
 
+# Disable gaps when only 1 window is open
+# Values: on|off|toggle|inverse_outer
+smart_gaps on
+
+# Clipboard
+# exec wl-paste -t text --watch clipman store --no-persist
+
 #
 # Example configuration:
 #
@@ -78,7 +85,7 @@ output * bg /home/rndmprsn/Pictures/wallpaper.png fill
     bindsym $mod+w kill
 
     # Start your launcher
-    bindsym $mod+d exec . "$HOME/.cache/wal/colors.sh" && dmenu_run -fn 'Liberastika:size=12' -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"
+    bindsym $mod+d exec dmenu_run -fn 'Liberastika:size=12'
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -225,6 +232,7 @@ exec waybar
 #     }
 # }
 
+gaps inner 10px
 focus_follows_mouse no
 
 seat seat0 xcursor_theme default 24
