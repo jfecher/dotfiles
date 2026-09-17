@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/rndmprsn/.oh-my-zsh
+export ZSH=/Users/jakefecher/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -45,16 +45,14 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fast-syntax-highlighting)
+plugins=(git)
 
 # User configuration
-# alias time=hyperfine
-alias storage=dust
+alias nargo=~/Code/Noir/noir/target/debug/nargo
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/rndmprsn/Code/Ante/pygments:/home/rndmprsn/.cargo/bin:/home/rndmprsn/.ghcup/bin"
-# export PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
-# export MANPATH="/usr/local/man:$MANPATH"
-export WINEPREFIX='/home/rndmprsn/.wine'
+export PATH=~/.local/bin:~/Code/Ante/ante/target/release:$PATH
+
+export WINEPREFIX='~/.wine'
 export WINEARCH='win64'
 
 export JAVA_HOME='/usr/lib/jvm/java-8-openjdk'
@@ -65,7 +63,6 @@ export VISUAL='nvim'
 export EDITOR='nvim'
 source $ZSH/oh-my-zsh.sh
 
-source ~/.config/nvim/bundle/gruvbox/gruvbox_256palette.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -91,77 +88,72 @@ source ~/.config/nvim/bundle/gruvbox/gruvbox_256palette.sh
 # Example aliases
 # [ -n "$XTERM_VERSION" ] && transset-df -a >/dev/null
 
-# . /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# . ~/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+export CC=/opt/homebrew/opt/llvm/bin/clang
+export CXX=/opt/homebrew/opt/llvm/bin/clang++
 
-export CC='gcc'
-export CXX='g++'
+export Z3_SYS_Z3_HEADER=/opt/homebrew/include/z3.h
+
+export LLVM_SYS_120_PREFIX=/Users/jakefecher/.config/llvmenv/12.0.1
+export LLVM_SYS_130_PREFIX=/Users/jakefecher/.config/llvmenv/13.0.0
+export LLVM_SYS_160_PREFIX=/opt/homebrew/opt/llvm@16
+export LLVM_SYS_170_PREFIX=/opt/homebrew/opt/llvm@17
+export LLVM_SYS_180_PREFIX=/opt/homebrew/opt/llvm@18
+export LLVM_SYS_211_PREFIX=/opt/homebrew/opt/llvm
 
 export RUST_BACKTRACE=0
 
-export STEAM_FRAME_FORCE_CLOSE=1
-alias divinity='pushd; cd /home/rndmprsn/.local/share/Steam/steamapps/common/Divinity\ Original\ Sin\ Enhanced\ Edition && optirun ./EoCApp; xrandr --size 3840x2160; popd'
+alias randomize_background='swaybg -i ~/Pictures/`ls ~/Pictures/ | shuf | head -1`'
+alias randomize_theme='I=`ls ~/Pictures | shuf | head -1`; wal -i ~/Pictures/$I; swaybg -i ~/Pictures/$I'
 
-alias randomize_background='swaybg -i /home/rndmprsn/Pictures/`ls /home/rndmprsn/Pictures/ | shuf | head -1`'
-alias randomize_theme='I=`ls /home/rndmprsn/Pictures | shuf | head -1`; wal -i /home/rndmprsn/Pictures/$I; swaybg -i /home/rndmprsn/Pictures/$I'
-
-alias install='sudo pacman -Sy'
-alias uninstall='sudo pacman -Rsn'
-alias uninstall-orphans='sudo pacman -Rsn $(pacman -Qdtq)'
-alias update='sudo pacman -Syuu'
+alias install='brew install'
+alias uninstall='brew uninstall'
+alias update='brew update'
 
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit'
+alias gch='git checkout'
+alias gchm='git checkout master'
+alias gpul='git pull'
 alias gpoh='git push origin HEAD'
 alias gq='git add . && git commit -m "quick fix" && git push'
 
-alias ls='ls --color=auto'
+alias cb='cargo build'
+alias ct='cargo test'
+alias ctn='cargo test -- --nocapture'
+alias cf='cargo fmt'
+alias clip='cargo clippy --all-targets --workspace'
+alias cfclip='cargo fmt && cargo clippy'
+alias cre='cargo run execute'
+alias sre='cd ~/Code/Noir/noir/short && cargo run execute'
+
+alias ls='ls --color=yes'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias nuwave='/home/rndmprsn/Code/Ante/wifi/nuwave &'
+alias vn='cd ~/Code/Noir/noir; nvim'
 
 c() {
     cd $1
     ls
 }
 
-usb() {
-    if [[ $# -ne 1 ]]; then
-        echo "usage: usb <drive>"
-    else
-        sudo mkdir -p /run/media/rndmprsn
-        sudo chown rndmprsn /run/media/rndmprsn
-        sudo chgrp rndmprsn /run/media/rndmprsn
-        sudo mount -rw -o 'exec' $1 /run/media/rndmprsn
-    fi
-}
-
 alias cpf='cp -avr'
 alias uniso='7z x'
 
-alias rs='cd $WINEPREFIX/drive_c/Program\ Files\ \(x86\)/Rosetta\ Stone/Rosetta\ Stone\ Version\ 3; wine RosettaStoneVersion3.exe'
-
 alias v='nvim'
-alias vima='cd /home/rndmprsn/Code/Ante/ante && nvim src/main.rs'
-alias ante='/home/rndmprsn/Code/Ante/ante/target/debug/ante'
-alias ctest='cargo test -- --nocapture'
+alias cv='git diff --name-only | uniq | xargs nvim'
 
-alias hugo='/home/rndmprsn/Code/Ante/website/hugo'
+alias vima='cd ~/Code/Ante/ante && nvim'
+alias gt='goldentests'
+
+alias hugo='~/Programs/hugo/hugo'
 
 # export LLVM_SYS_100_PREFIX=$(llvmenv prefix)
 
-# -c jpeg, xv, yuv
-alias pkmn='optirun -c jpeg run_scaled --scale=4 wine /home/rndmprsn/Downloads/Pokemon\ Rejuvenation/Game.exe'
-
-alias ncm='mpd; ncmpcpp'
-alias screenshot='grim'
-
 alias ping='ping -c 1 www.google.com'
-
-alias bar='~/Code/bar/bar.sh'
-alias vol='~/Code/pa-vol.sh'
 
 # color theme
 #if [ "$TERM" = "linux" ]; then
@@ -185,15 +177,18 @@ alias vol='~/Code/pa-vol.sh'
 #    echo -en "\e]PFFFFFFF" #darkgrey
 #fi
 
-# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /Users/jakefecher/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# opam configuration
-test -r /home/rndmprsn/.opam/opam-init/init.zsh && . /home/rndmprsn/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+[ -f "/Users/jakefecher/.ghcup/env" ] && source "/Users/jakefecher/.ghcup/env" # ghcup-env
 
-# nix-env config
-# source /home/rndmprsn/.nix-profile/etc/profile.d/nix.sh
-# export PATH="$HOME/.nix_profile/bin:$PATH"
+eval "$(direnv hook zsh)"
 
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-	XKB_DEFAULT_LAYOUT=us exec sway
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
+# End Nix
+
+export NARGO_HOME="/Users/jakefecher/.nargo"
+
+export PATH="$PATH:$NARGO_HOME/bin"
